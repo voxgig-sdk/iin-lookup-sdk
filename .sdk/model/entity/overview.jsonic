@@ -1,0 +1,71 @@
+# Entity: overview
+
+main: kit: entity: overview: {
+
+  alias: field: {}
+
+  name: "overview"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/iin"
+          parts: [
+            "iin"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "12345"
+                kind: "query"
+                name: "digit"
+                orig: "digit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "{{secret_key}}"
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/iin"
+          parts: [
+            "iin"
+          ]
+          select: {
+            exist: [
+              "digit"
+              "key"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

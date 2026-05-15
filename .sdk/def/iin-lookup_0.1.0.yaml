@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: IIN Lookup API
+  description: >-
+    IIN API: Card IIN and BIN Lookup and Verification
+
+
+    IIN API allows you to accurately identify the issuing bank, card type,
+    country of origin, and other details from a credit or debit card number.
+    This is essential for fraud prevention, payment processing, and customer
+    verification.
+  version: 1.0.0
+servers:
+  - url: http://{{base_url}}
+tags:
+  - name: Overview
+    description: "This document explains in detail how to utilise our IIN / BIN lookup and validation API. Should you experience any issues during the consumption of our APIs or should you encounter any unexpected behaviour please\_[get in touch with us](https://iinapi.com/contact)."
+paths:
+  /iin:
+    post:
+      tags:
+        - Overview
+      summary: Post data
+      description: This endpoint returns all lookups number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                value1: value1
+                value2: value2
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n   \"message\":\"The command was processed successfully.\",\r\n   \"valid\":true,\r\n   \"result\":{\r\n      \"Bin\": 324000,\r\n      \"CardBrand\": \"AMERICAN EXPRESS\",\r\n      \"IssuingInstitution\": \"BRANCH BANKING AND TRUST COMPANY\",\r\n      \"CardType\": \"DEBIT\",\r\n      \"CardCategory\": \"BUSINESS\",\r\n      \"IssuingCountry\": \"UNITED STATES\",\r\n      \"IssuingCountryCode\": \"US\"\r\n   }\r\n}"
+        '400':
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\":\"The end-point you have sent the request to is not valid (for example, the end point should be /iin)\"\r\n}"
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\": \"The request was not authorised. This can occur when using an incorrect key, if the server IP is not on the account whitelist, or if the account is banned.\"\r\n}"
+        '402':
+          description: Payment Required
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\": \"The request was refused due to a billing issue with the associated account.\"\r\n}"
+        '405':
+          description: Method Not Allowed
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\": \"The HTTP request method used is not compatible with the selected end-point. This can occur when using POST rather than GET for example.\"\r\n}"
+        '409':
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\": \"The request has been incorrectly constructed. This can occur when omitting required parameters or providing them in the wrong type. For example, if the BIN number you supply is incorrect.\"\r\n}"
+        '422':
+          description: Unprocessable Content
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\": \"Well formatted request however some technical issue is preventing the serving of the request\"\r\n}"
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"message\": \"The client did everything correctly, but we've had an internal issue.\r\n\"\r\n}"
+    get:
+      tags:
+        - Overview
+      summary: GET Request
+      description: >-
+        When performing a GET request this end-point accepts the first 6, 7, 8,
+        9, 10, or 11 numbers from the credit or debit card and returns vendor,
+        location, and other meta information.
+      parameters:
+        - name: key
+          in: query
+          schema:
+            type: string
+          example: '{{secret_key}}'
+        - name: digits
+          in: query
+          schema:
+            type: integer
+          example: '12345'
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "{\r\n    \"valid\": true,\r\n    \"result\": {\r\n        \"Bin\": 123456,\r\n        \"CardBrand\": \"LOCAL BRAND\",\r\n        \"IssuingInstitution\": \"\",\r\n        \"CardType\": \"CREDIT\",\r\n        \"CardCategory\": \"UATP\",\r\n        \"IssuingCountry\": \"NICARAGUA\",\r\n        \"IssuingCountryCode\": \"NI\"\r\n    }\r\n}"

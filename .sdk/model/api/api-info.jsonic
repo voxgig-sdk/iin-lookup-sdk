@@ -1,0 +1,21 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: `IIN API: Card IIN and BIN Lookup and Verification
+
+IIN API allows you to accurately identify the issuing bank, card type, country of origin, and other details from a credit or debit card number. This is essential for fraud prevention, payment processing, and customer verification.`
+      servers: [
+        {
+          url: "http://{{base_url}}"
+        }
+      ]
+      title: "IIN Lookup API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

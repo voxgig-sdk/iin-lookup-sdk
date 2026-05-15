@@ -1,0 +1,67 @@
+<?php
+declare(strict_types=1);
+
+// IinLookup SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+IinLookupUtility::setRegistrar(function (IinLookupUtility $u): void {
+    $u->clean = [IinLookupClean::class, 'call'];
+    $u->done = [IinLookupDone::class, 'call'];
+    $u->make_error = [IinLookupMakeError::class, 'call'];
+    $u->feature_add = [IinLookupFeatureAdd::class, 'call'];
+    $u->feature_hook = [IinLookupFeatureHook::class, 'call'];
+    $u->feature_init = [IinLookupFeatureInit::class, 'call'];
+    $u->fetcher = [IinLookupFetcher::class, 'call'];
+    $u->make_fetch_def = [IinLookupMakeFetchDef::class, 'call'];
+    $u->make_context = [IinLookupMakeContext::class, 'call'];
+    $u->make_options = [IinLookupMakeOptions::class, 'call'];
+    $u->make_request = [IinLookupMakeRequest::class, 'call'];
+    $u->make_response = [IinLookupMakeResponse::class, 'call'];
+    $u->make_result = [IinLookupMakeResult::class, 'call'];
+    $u->make_point = [IinLookupMakePoint::class, 'call'];
+    $u->make_spec = [IinLookupMakeSpec::class, 'call'];
+    $u->make_url = [IinLookupMakeUrl::class, 'call'];
+    $u->param = [IinLookupParam::class, 'call'];
+    $u->prepare_auth = [IinLookupPrepareAuth::class, 'call'];
+    $u->prepare_body = [IinLookupPrepareBody::class, 'call'];
+    $u->prepare_headers = [IinLookupPrepareHeaders::class, 'call'];
+    $u->prepare_method = [IinLookupPrepareMethod::class, 'call'];
+    $u->prepare_params = [IinLookupPrepareParams::class, 'call'];
+    $u->prepare_path = [IinLookupPreparePath::class, 'call'];
+    $u->prepare_query = [IinLookupPrepareQuery::class, 'call'];
+    $u->result_basic = [IinLookupResultBasic::class, 'call'];
+    $u->result_body = [IinLookupResultBody::class, 'call'];
+    $u->result_headers = [IinLookupResultHeaders::class, 'call'];
+    $u->transform_request = [IinLookupTransformRequest::class, 'call'];
+    $u->transform_response = [IinLookupTransformResponse::class, 'call'];
+});
