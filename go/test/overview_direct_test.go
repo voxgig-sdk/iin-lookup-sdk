@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/iin-lookup-sdk"
-	"github.com/voxgig-sdk/iin-lookup-sdk/core"
+	sdk "github.com/voxgig-sdk/iin-lookup-sdk/go"
+	"github.com/voxgig-sdk/iin-lookup-sdk/go/core"
 )
 
 func TestOverviewDirect(t *testing.T) {

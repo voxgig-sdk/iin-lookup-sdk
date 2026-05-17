@@ -1,10 +1,10 @@
 package voxgigiinlookupsdk
 
 import (
-	"github.com/voxgig-sdk/iin-lookup-sdk/core"
-	"github.com/voxgig-sdk/iin-lookup-sdk/entity"
-	"github.com/voxgig-sdk/iin-lookup-sdk/feature"
-	_ "github.com/voxgig-sdk/iin-lookup-sdk/utility"
+	"github.com/voxgig-sdk/iin-lookup-sdk/go/core"
+	"github.com/voxgig-sdk/iin-lookup-sdk/go/entity"
+	"github.com/voxgig-sdk/iin-lookup-sdk/go/feature"
+	_ "github.com/voxgig-sdk/iin-lookup-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

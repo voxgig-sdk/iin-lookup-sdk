@@ -1,9 +1,15 @@
 {
   "existing": {
     "overview": {
-      "OVERVIEW00": {},
-      "OVERVIEW01": {},
-      "OVERVIEW02": {}
+      "OVERVIEW00": {
+        "id": "OVERVIEW00"
+      },
+      "OVERVIEW01": {
+        "id": "OVERVIEW01"
+      },
+      "OVERVIEW02": {
+        "id": "OVERVIEW02"
+      }
     }
   },
   "new": {

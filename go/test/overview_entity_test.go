@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/iin-lookup-sdk"
-	"github.com/voxgig-sdk/iin-lookup-sdk/core"
+	sdk "github.com/voxgig-sdk/iin-lookup-sdk/go"
+	"github.com/voxgig-sdk/iin-lookup-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/iin-lookup-sdk/go/utility/struct"
 )
 
 func TestOverviewEntity(t *testing.T) {
