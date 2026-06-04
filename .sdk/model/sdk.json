@@ -12,7 +12,17 @@
           }
         ],
         "title": "IIN Lookup API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Look up the issuing bank, card brand, and country behind a card's first 6-11 digits (IIN/BIN)",
+        "homepage": "https://iinapi.com/",
+        "docs_url": "https://iinapi.com/iin_api_specs.yaml",
+        "license_short": "Commercial service from IINAPI; free tier up to 75 calls/month, paid tiers beyond. Subject to IINAPI's terms of service.",
+        "license_md": "- Operated commercially by IINAPI (`iinapi.com`); usage is governed by their Privacy Policy, Terms & Conditions, and Usage policies.\n- Free tier covers up to 75 calls per month; higher volumes are billed per-call on a sliding scale.\n- An API key is required for all calls; optional IP whitelisting is available for additional security.\n- Catalogue listing on freepublicapis.com is subject to its own [terms of service](https://freepublicapis.com/terms-of-service).",
+        "about_md": "[IIN Lookup API](https://iinapi.com/) is a card IIN/BIN (Issuer Identification Number / Bank Identification Number) lookup service operated by IINAPI. Given the first 6-11 digits of a credit or debit card, it returns metadata about the issuing institution, card brand, and country of issue. Typical use cases include payment routing, fraud detection, and customer analytics.\n\nWhat you get from the API:\n\n- A single `GET` endpoint that accepts the leading digits of a card number and an API `key` query parameter.\n- JSON responses describing the card brand, issuing bank, and country associated with the IIN/BIN.\n- Coverage of credit and debit card BINs across major card networks.\n\nOperational notes: authentication is via an API key passed as a query parameter; the operator states there are no arbitrary rate limits, and pricing is metered per call above the free tier (free up to 75 calls/month, then tiered from roughly $0.001 to $0.0035 per call depending on volume). CORS is enabled, making the endpoint usable directly from browser clients.",
+        "entity_desc": {
+          "overview": "Catch-all grouping for the single IIN/BIN lookup operation exposed by the API, hitting the `/iin` endpoint with a card number prefix and API `key`."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -20,7 +30,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "overview": {

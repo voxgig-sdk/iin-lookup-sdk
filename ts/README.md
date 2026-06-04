@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { IinLookupSDK } from 'iin-lookup'
 
-const client = new IinLookupSDK({
-  apikey: process.env.IIN-LOOKUP_APIKEY,
-})
+const client = new IinLookupSDK({})
 ```
 
 ### 3. Load a overview
@@ -92,7 +90,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new IinLookupSDK({ apikey: '...' })
+const client = new IinLookupSDK()
 const testClient = client.tester()
 ```
 
@@ -128,7 +126,6 @@ const logger = {
 }
 
 const client = new IinLookupSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -139,7 +136,6 @@ Create a `.env.local` file at the project root:
 
 ```
 IIN-LOOKUP_TEST_LIVE=TRUE
-IIN-LOOKUP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -157,7 +153,6 @@ cd ts && npm test
 
 ```ts
 new IinLookupSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -168,7 +163,6 @@ new IinLookupSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

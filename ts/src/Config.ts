@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'http://{{base_url}}',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

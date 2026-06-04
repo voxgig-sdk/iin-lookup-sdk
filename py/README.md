@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from iinlookup_sdk import IinLookupSDK
 
-client = IinLookupSDK({
-    "apikey": os.environ.get("IIN-LOOKUP_APIKEY"),
-})
+client = IinLookupSDK({})
 ```
 
 ### 3. Load a overview
@@ -125,7 +122,6 @@ Create a `.env.local` file at the project root:
 
 ```
 IIN-LOOKUP_TEST_LIVE=TRUE
-IIN-LOOKUP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -149,7 +145,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

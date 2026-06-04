@@ -1,9 +1,96 @@
 # IinLookup SDK
 
+Look up the issuing bank, card brand, and country behind a card's first 6-11 digits (IIN/BIN)
 
+> TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-Available for [Golang](go/) and [Go CLI](go-cli/) and [Go MCP server](go-mcp/) and [Lua](lua/) and [PHP](php/) and [Python](py/) and [Ruby](rb/) and [TypeScript](ts/).
+## About IIN Lookup API
 
+[IIN Lookup API](https://iinapi.com/) is a card IIN/BIN (Issuer Identification Number / Bank Identification Number) lookup service operated by IINAPI. Given the first 6-11 digits of a credit or debit card, it returns metadata about the issuing institution, card brand, and country of issue. Typical use cases include payment routing, fraud detection, and customer analytics.
+
+What you get from the API:
+
+- A single `GET` endpoint that accepts the leading digits of a card number and an API `key` query parameter.
+- JSON responses describing the card brand, issuing bank, and country associated with the IIN/BIN.
+- Coverage of credit and debit card BINs across major card networks.
+
+Operational notes: authentication is via an API key passed as a query parameter; the operator states there are no arbitrary rate limits, and pricing is metered per call above the free tier (free up to 75 calls/month, then tiered from roughly $0.001 to $0.0035 per call depending on volume). CORS is enabled, making the endpoint usable directly from browser clients.
+
+## Try it
+
+**TypeScript**
+```bash
+npm install iin-lookup
+```
+
+**Python**
+```bash
+pip install iin-lookup-sdk
+```
+
+**PHP**
+```bash
+composer require voxgig/iin-lookup-sdk
+```
+
+**Golang**
+```bash
+go get github.com/voxgig-sdk/iin-lookup-sdk/go
+```
+
+**Ruby**
+```bash
+gem install iin-lookup-sdk
+```
+
+**Lua**
+```bash
+luarocks install iin-lookup-sdk
+```
+
+## 30-second quickstart
+
+### TypeScript
+
+```ts
+import { IinLookupSDK } from 'iin-lookup'
+
+const client = new IinLookupSDK({})
+
+```
+
+See the [TypeScript README](ts/README.md) for the
+full guide, or scroll down for the same example in other languages.
+
+## What's in the box
+
+| Surface | Use it for | Path |
+| --- | --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
+| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+
+## Use it from an AI agent (MCP)
+
+The generated MCP server exposes every operation in this SDK as an
+[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
+can call directly. Build and register it:
+
+```bash
+cd go-mcp && go build -o iin-lookup-mcp .
+```
+
+Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "iin-lookup": {
+      "command": "/abs/path/to/iin-lookup-mcp"
+    }
+  }
+}
+```
 
 ## Entities
 
@@ -11,75 +98,24 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Overview** |  | `/iin` |
+| **Overview** | Catch-all grouping for the single IIN/BIN lookup operation exposed by the API, hitting the `/iin` endpoint with a card number prefix and API `key`. | `/iin` |
 
-Each entity supports the following operations where available: **load**, **list**, **create**,
-**update**, and **remove**.
+Each entity supports the following operations where available: **load**,
+**list**, **create**, **update**, and **remove**.
 
+## Quickstart in other languages
 
-## Architecture
+### Python
 
-### Entity-operation model
+```python
+from iinlookup_sdk import IinLookupSDK
 
-Every SDK call follows the same pipeline:
-
-1. **Point** — resolve the API endpoint from the operation definition.
-2. **Spec** — build the HTTP specification (URL, method, headers, body).
-3. **Request** — send the HTTP request.
-4. **Response** — receive and parse the response.
-5. **Result** — extract the result data for the caller.
-
-At each stage a feature hook fires (e.g. `PrePoint`, `PreSpec`,
-`PreRequest`), allowing features to inspect or modify the pipeline.
-
-### Features
-
-Features are hook-based middleware that extend SDK behaviour.
-
-| Feature | Purpose |
-| --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-
-You can add custom features by passing them in the `extend` option at
-construction time.
-
-### Direct and Prepare
-
-For endpoints not covered by the entity model, use the low-level methods:
-
-- **`direct(fetchargs)`** — build and send an HTTP request in one step.
-- **`prepare(fetchargs)`** — build the request without sending it.
-
-Both accept a map with `path`, `method`, `params`, `query`, `headers`,
-and `body`.
+client = IinLookupSDK({})
 
 
-## Quick start
-
-### Golang
-
-```go
-import sdk "github.com/voxgig-sdk/iin-lookup-sdk/go"
-
-client := sdk.NewIinLookupSDK(map[string]any{
-    "apikey": os.Getenv("IIN-LOOKUP_APIKEY"),
-})
-
-```
-
-### Lua
-
-```lua
-local sdk = require("iin-lookup_sdk")
-
-local client = sdk.new({
-  apikey = os.getenv("IIN-LOOKUP_APIKEY"),
-})
-
-
--- Load a specific overview
-local overview, err = client:Overview(nil):load(
-  { id = "example_id" }, nil
+# Load a specific overview
+overview, err = client.Overview(None).load(
+    {"id": "example_id"}, None
 )
 ```
 
@@ -89,9 +125,7 @@ local overview, err = client:Overview(nil):load(
 <?php
 require_once 'iinlookup_sdk.php';
 
-$client = new IinLookupSDK([
-    "apikey" => getenv("IIN-LOOKUP_APIKEY"),
-]);
+$client = new IinLookupSDK([]);
 
 
 // Load a specific overview
@@ -100,21 +134,13 @@ $client = new IinLookupSDK([
 );
 ```
 
-### Python
+### Golang
 
-```python
-import os
-from iinlookup_sdk import IinLookupSDK
+```go
+import sdk "github.com/voxgig-sdk/iin-lookup-sdk/go"
 
-client = IinLookupSDK({
-    "apikey": os.environ.get("IIN-LOOKUP_APIKEY"),
-})
+client := sdk.NewIinLookupSDK(map[string]any{})
 
-
-# Load a specific overview
-overview, err = client.Overview(None).load(
-    {"id": "example_id"}, None
-)
 ```
 
 ### Ruby
@@ -122,9 +148,7 @@ overview, err = client.Overview(None).load(
 ```ruby
 require_relative "IinLookup_sdk"
 
-client = IinLookupSDK.new({
-  "apikey" => ENV["IIN-LOOKUP_APIKEY"],
-})
+client = IinLookupSDK.new({})
 
 
 # Load a specific overview
@@ -133,38 +157,39 @@ overview, err = client.Overview(nil).load(
 )
 ```
 
-### TypeScript
-
-```ts
-import { IinLookupSDK } from 'iin-lookup'
-
-const client = new IinLookupSDK({
-  apikey: process.env.IIN-LOOKUP_APIKEY,
-})
-
-```
-
-
-## Testing
-
-Both SDKs provide a test mode that replaces the HTTP transport with an
-in-memory mock, so tests run without a network connection.
-
-### Golang
-
-```go
-client := sdk.TestSDK(nil, nil)
-result, err := client.Overview(nil).Load(
-    map[string]any{"id": "test01"}, nil,
-)
-```
-
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Overview(nil):load(
-  { id = "test01" }, nil
+local sdk = require("iin-lookup_sdk")
+
+local client = sdk.new({})
+
+
+-- Load a specific overview
+local overview, err = client:Overview(nil):load(
+  { id = "example_id" }, nil
+)
+```
+
+## Unit testing in offline mode
+
+Every SDK ships a test mode that swaps the HTTP transport for an
+in-memory mock, so unit tests run offline.
+
+### TypeScript
+
+```ts
+const client = IinLookupSDK.test()
+const result = await client.Overview().load({ id: 'test01' })
+// result.ok === true, result.data contains mock data
+```
+
+### Python
+
+```python
+client = IinLookupSDK.test(None, None)
+result, err = client.Overview(None).load(
+    {"id": "test01"}, None
 )
 ```
 
@@ -177,12 +202,12 @@ $client = IinLookupSDK::test(null, null);
 );
 ```
 
-### Python
+### Golang
 
-```python
-client = IinLookupSDK.test(None, None)
-result, err = client.Overview(None).load(
-    {"id": "test01"}, None
+```go
+client := sdk.TestSDK(nil, nil)
+result, err := client.Overview(nil).Load(
+    map[string]any{"id": "test01"}, nil,
 )
 ```
 
@@ -195,14 +220,46 @@ result, err = client.Overview(nil).load(
 )
 ```
 
-### TypeScript
+### Lua
 
-```ts
-const client = IinLookupSDK.test()
-const result = await client.Overview().load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+```lua
+local client = sdk.test(nil, nil)
+local result, err = client:Overview(nil):load(
+  { id = "test01" }, nil
+)
 ```
 
+## How it works
+
+Every SDK call runs the same five-stage pipeline:
+
+1. **Point** — resolve the API endpoint from the operation definition.
+2. **Spec** — build the HTTP specification (URL, method, headers, body).
+3. **Request** — send the HTTP request.
+4. **Response** — receive and parse the response.
+5. **Result** — extract the result data for the caller.
+
+A feature hook fires at each stage (e.g. `PrePoint`, `PreSpec`,
+`PreRequest`), so features can inspect or modify the pipeline without
+forking the SDK.
+
+### Features
+
+| Feature | Purpose |
+| --- | --- |
+| **TestFeature** | In-memory mock transport for testing without a live server |
+
+Pass custom features via the `extend` option at construction time.
+
+### Direct and Prepare
+
+For endpoints the entity model doesn't cover, use the low-level methods:
+
+- **`direct(fetchargs)`** — build and send an HTTP request in one step.
+- **`prepare(fetchargs)`** — build the request without sending it.
+
+Both accept a map with `path`, `method`, `params`, `query`,
+`headers`, and `body`. See the [How-to guides](#how-to-guides) below.
 
 ## How-to guides
 
@@ -210,21 +267,22 @@ const result = await client.Overview().load({ id: 'test01' })
 
 When the entity interface does not cover an endpoint, use `direct`:
 
-**Go:**
-```go
-result, err := client.Direct(map[string]any{
-    "path":   "/api/resource/{id}",
-    "method": "GET",
-    "params": map[string]any{"id": "example"},
+**TypeScript:**
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example' },
 })
+console.log(result.data)
 ```
 
-**Lua:**
-```lua
-local result, err = client:direct({
-  path = "/api/resource/{id}",
-  method = "GET",
-  params = { id = "example" },
+**Python:**
+```python
+result, err = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example"},
 })
 ```
 
@@ -237,12 +295,12 @@ local result, err = client:direct({
 ]);
 ```
 
-**Python:**
-```python
-result, err = client.direct({
-    "path": "/api/resource/{id}",
+**Go:**
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
     "method": "GET",
-    "params": {"id": "example"},
+    "params": map[string]any{"id": "example"},
 })
 ```
 
@@ -255,25 +313,34 @@ result, err = client.direct({
 })
 ```
 
-**TypeScript:**
-```ts
-const result = await client.direct({
-  path: '/api/resource/{id}',
-  method: 'GET',
-  params: { id: 'example' },
+**Lua:**
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example" },
 })
-console.log(result.data)
 ```
 
+## Per-language documentation
 
-## Language-specific documentation
+- [TypeScript](ts/README.md)
+- [Python](py/README.md)
+- [PHP](php/README.md)
+- [Golang](go/README.md)
+- [Ruby](rb/README.md)
+- [Lua](lua/README.md)
 
-- [Golang SDK](go/README.md)
-- [Go CLI SDK](go-cli/README.md)
-- [Go MCP server SDK](go-mcp/README.md)
-- [Lua SDK](lua/README.md)
-- [PHP SDK](php/README.md)
-- [Python SDK](py/README.md)
-- [Ruby SDK](rb/README.md)
-- [TypeScript SDK](ts/README.md)
+## Using the IIN Lookup API
 
+- Upstream: [https://iinapi.com/](https://iinapi.com/)
+- API docs: [https://iinapi.com/iin_api_specs.yaml](https://iinapi.com/iin_api_specs.yaml)
+
+- Operated commercially by IINAPI (`iinapi.com`); usage is governed by their Privacy Policy, Terms & Conditions, and Usage policies.
+- Free tier covers up to 75 calls per month; higher volumes are billed per-call on a sliding scale.
+- An API key is required for all calls; optional IP whitelisting is available for additional security.
+- Catalogue listing on freepublicapis.com is subject to its own [terms of service](https://freepublicapis.com/terms-of-service).
+
+---
+
+Generated from the IIN Lookup API OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
