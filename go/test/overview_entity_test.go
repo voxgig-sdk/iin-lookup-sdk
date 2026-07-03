@@ -120,6 +120,7 @@ func overviewBasicSetup(extra map[string]any) *entityTestSetup {
 		"IINLOOKUP_TEST_OVERVIEW_ENTID": idmap,
 		"IINLOOKUP_TEST_LIVE":      "FALSE",
 		"IINLOOKUP_TEST_EXPLAIN":   "FALSE",
+		"IINLOOKUP_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["IINLOOKUP_TEST_OVERVIEW_ENTID"])
@@ -130,6 +131,7 @@ func overviewBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["IINLOOKUP_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["IINLOOKUP_APIKEY"],
 			},
 			extra,
 		})

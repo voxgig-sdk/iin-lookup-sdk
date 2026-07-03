@@ -92,6 +92,7 @@ function overview_basic_setup(extra)
     ["IINLOOKUP_TEST_OVERVIEW_ENTID"] = idmap,
     ["IINLOOKUP_TEST_LIVE"] = "FALSE",
     ["IINLOOKUP_TEST_EXPLAIN"] = "FALSE",
+    ["IINLOOKUP_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -103,6 +104,7 @@ function overview_basic_setup(extra)
   if env["IINLOOKUP_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["IINLOOKUP_APIKEY"],
       },
       extra or {},
     })

@@ -74,12 +74,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'IINLOOKUP_TEST_OVERVIEW_ENTID': {},
     'IINLOOKUP_TEST_LIVE': 'FALSE',
+    'IINLOOKUP_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.IINLOOKUP_TEST_LIVE
 
   if (live) {
     const client = new IinLookupSDK({
+      apikey: env.IINLOOKUP_APIKEY,
     })
 
     let idmap: any = env['IINLOOKUP_TEST_OVERVIEW_ENTID']

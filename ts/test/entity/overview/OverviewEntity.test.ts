@@ -119,6 +119,7 @@ function basicSetup(extra?: any) {
     'IIN_LOOKUP_TEST_OVERVIEW_ENTID': idmap,
     'IIN_LOOKUP_TEST_LIVE': 'FALSE',
     'IIN_LOOKUP_TEST_EXPLAIN': 'FALSE',
+    'IIN_LOOKUP_APIKEY': 'NONE',
   })
 
   idmap = env['IIN_LOOKUP_TEST_OVERVIEW_ENTID']
@@ -128,6 +129,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new IinLookupSDK(merge([
       {
+        apikey: env.IIN_LOOKUP_APIKEY,
       },
       extra
     ]))

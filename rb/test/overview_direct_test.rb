@@ -61,12 +61,14 @@ def overview_direct_setup(mockres)
   env = Runner.env_override({
     "IINLOOKUP_TEST_OVERVIEW_ENTID" => {},
     "IINLOOKUP_TEST_LIVE" => "FALSE",
+    "IINLOOKUP_APIKEY" => "NONE",
   })
 
   live = env["IINLOOKUP_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["IINLOOKUP_APIKEY"],
     }
     client = IinLookupSDK.new(merged_opts)
     return {

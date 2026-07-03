@@ -38,6 +38,10 @@ class Config {
   options = {
     base: 'http://{{base_url}}',
 
+    auth: {
+      prefix: 'Bearer',
+    },
+
     headers: {
       "content-type": "application/json"
     },
@@ -57,50 +61,52 @@ class Config {
       "name": "overview",
       "op": {
         "create": {
+          "input": "data",
           "name": "create",
           "points": [
             {
+              "active": true,
+              "args": {},
               "method": "POST",
               "orig": "/iin",
               "parts": [
                 "iin"
               ],
+              "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
-              "args": {},
-              "select": {},
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "create"
         },
         "load": {
+          "input": "data",
           "name": "load",
           "points": [
             {
+              "active": true,
               "args": {
                 "query": [
                   {
+                    "active": true,
                     "example": "12345",
                     "kind": "query",
                     "name": "digit",
                     "orig": "digit",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "example": "{{secret_key}}",
                     "kind": "query",
                     "name": "key",
                     "orig": "key",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -119,11 +125,9 @@ class Config {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "load"
         }
       },

@@ -1,20 +1,8 @@
 # IinLookup SDK
 
-Look up the issuing bank, card brand, and country behind a card's first 6-11 digits (IIN/BIN)
+IIN Lookup API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About IIN Lookup API
-
-[IIN Lookup API](https://iinapi.com/) is a card IIN/BIN (Issuer Identification Number / Bank Identification Number) lookup service operated by IINAPI. Given the first 6-11 digits of a credit or debit card, it returns metadata about the issuing institution, card brand, and country of issue. Typical use cases include payment routing, fraud detection, and customer analytics.
-
-What you get from the API:
-
-- A single `GET` endpoint that accepts the leading digits of a card number and an API `key` query parameter.
-- JSON responses describing the card brand, issuing bank, and country associated with the IIN/BIN.
-- Coverage of credit and debit card BINs across major card networks.
-
-Operational notes: authentication is via an API key passed as a query parameter; the operator states there are no arbitrary rate limits, and pricing is metered per call above the free tier (free up to 75 calls/month, then tiered from roughly $0.001 to $0.0035 per call depending on volume). CORS is enabled, making the endpoint usable directly from browser clients.
 
 ## Try it
 
@@ -48,27 +36,31 @@ gem install iin-lookup-sdk
 luarocks install iin-lookup-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { IinLookupSDK } from 'iin-lookup'
 
-const client = new IinLookupSDK({})
+const client = new IinLookupSDK({
+  apikey: process.env.IIN-LOOKUP_APIKEY,
+})
 
+// Load overview data
+const overview = await client.Overview().load({})
+console.log(overview.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -98,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Overview** | Catch-all grouping for the single IIN/BIN lookup operation exposed by the API, hitting the `/iin` endpoint with a card number prefix and API `key`. | `/iin` |
+| **Overview** |  | `/iin` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -108,15 +100,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from iinlookup_sdk import IinLookupSDK
 
-client = IinLookupSDK({})
+client = IinLookupSDK({
+    "apikey": os.environ.get("IIN-LOOKUP_APIKEY"),
+})
 
 
 # Load a specific overview
-overview, err = client.Overview(None).load(
-    {"id": "example_id"}, None
-)
+overview, err = client.Overview().load({"id": "example_id"})
+print(overview)
 ```
 
 ### PHP
@@ -125,13 +119,14 @@ overview, err = client.Overview(None).load(
 <?php
 require_once 'iinlookup_sdk.php';
 
-$client = new IinLookupSDK([]);
+$client = new IinLookupSDK([
+    "apikey" => getenv("IIN-LOOKUP_APIKEY"),
+]);
 
 
 // Load a specific overview
-[$overview, $err] = $client->Overview(null)->load(
-    ["id" => "example_id"], null
-);
+[$overview, $err] = $client->Overview()->load(["id" => "example_id"]);
+print_r($overview);
 ```
 
 ### Golang
@@ -139,8 +134,13 @@ $client = new IinLookupSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/iin-lookup-sdk/go"
 
-client := sdk.NewIinLookupSDK(map[string]any{})
+client := sdk.NewIinLookupSDK(map[string]any{
+    "apikey": os.Getenv("IIN-LOOKUP_APIKEY"),
+})
 
+// Load overview data
+overview, err := client.Overview(nil).Load(map[string]any{}, nil)
+fmt.Println(overview)
 ```
 
 ### Ruby
@@ -148,13 +148,14 @@ client := sdk.NewIinLookupSDK(map[string]any{})
 ```ruby
 require_relative "IinLookup_sdk"
 
-client = IinLookupSDK.new({})
+client = IinLookupSDK.new({
+  "apikey" => ENV["IIN-LOOKUP_APIKEY"],
+})
 
 
 # Load a specific overview
-overview, err = client.Overview(nil).load(
-  { "id" => "example_id" }, nil
-)
+overview, err = client.Overview().load({ "id" => "example_id" })
+puts overview
 ```
 
 ### Lua
@@ -162,13 +163,14 @@ overview, err = client.Overview(nil).load(
 ```lua
 local sdk = require("iin-lookup_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("IIN-LOOKUP_APIKEY"),
+})
 
 
 -- Load a specific overview
-local overview, err = client:Overview(nil):load(
-  { id = "example_id" }, nil
-)
+local overview, err = client:Overview():load({ id = "example_id" })
+print(overview)
 ```
 
 ## Unit testing in offline mode
@@ -187,25 +189,21 @@ const result = await client.Overview().load({ id: 'test01' })
 ### Python
 
 ```python
-client = IinLookupSDK.test(None, None)
-result, err = client.Overview(None).load(
-    {"id": "test01"}, None
-)
+client = IinLookupSDK.test()
+result, err = client.Overview().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = IinLookupSDK::test(null, null);
-[$result, $err] = $client->Overview(null)->load(
-    ["id" => "test01"], null
-);
+$client = IinLookupSDK::test();
+[$result, $err] = $client->Overview()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Overview(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -214,19 +212,15 @@ result, err := client.Overview(nil).Load(
 ### Ruby
 
 ```ruby
-client = IinLookupSDK.test(nil, nil)
-result, err = client.Overview(nil).load(
-  { "id" => "test01" }, nil
-)
+client = IinLookupSDK.test
+result, err = client.Overview().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Overview(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Overview():load({ id = "test01" })
 ```
 
 ## How it works
@@ -330,16 +324,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the IIN Lookup API
-
-- Upstream: [https://iinapi.com/](https://iinapi.com/)
-- API docs: [https://iinapi.com/iin_api_specs.yaml](https://iinapi.com/iin_api_specs.yaml)
-
-- Operated commercially by IINAPI (`iinapi.com`); usage is governed by their Privacy Policy, Terms & Conditions, and Usage policies.
-- Free tier covers up to 75 calls per month; higher volumes are billed per-call on a sliding scale.
-- An API key is required for all calls; optional IP whitelisting is available for additional security.
-- Catalogue listing on freepublicapis.com is subject to its own [terms of service](https://freepublicapis.com/terms-of-service).
 
 ---
 
