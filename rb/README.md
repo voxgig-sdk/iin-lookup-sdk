@@ -10,13 +10,13 @@ The Ruby SDK for the IinLookup API — an entity-oriented client using idiomatic
 
 ## Install
 ```bash
-gem install iin-lookup-sdk
+gem install voxgig-sdk-iin-lookup
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "iin-lookup-sdk"
+gem "voxgig-sdk-iin-lookup"
 ```
 
 Then run:

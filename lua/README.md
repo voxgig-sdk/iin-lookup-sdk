@@ -10,7 +10,7 @@ The Lua SDK for the IinLookup API — an entity-oriented client using Lua conven
 
 ## Install
 ```bash
-luarocks install iin-lookup-sdk
+luarocks install voxgig-sdk-iin-lookup
 ```
 
 If the module is not yet published, add the source directory to

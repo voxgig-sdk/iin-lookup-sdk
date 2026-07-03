@@ -10,7 +10,7 @@ The PHP SDK for the IinLookup API — an entity-oriented client using PHP conven
 
 ## Install
 ```bash
-composer require voxgig/iin-lookup-sdk
+composer require voxgig-sdk/iin-lookup
 ```
 
 

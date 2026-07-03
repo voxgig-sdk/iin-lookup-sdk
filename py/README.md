@@ -10,7 +10,7 @@ The Python SDK for the IinLookup API — an entity-oriented client following Pyt
 
 ## Install
 ```bash
-pip install iin-lookup-sdk
+pip install voxgig-sdk-iin-lookup
 ```
 
 Or install from source:

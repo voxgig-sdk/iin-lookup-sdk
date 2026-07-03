@@ -10,7 +10,7 @@ The TypeScript SDK for the IinLookup API — a type-safe, entity-oriented client
 
 ## Install
 ```bash
-npm install iin-lookup
+npm install @voxgig-sdk/iin-lookup
 ```
 ## Tutorial: your first API call
 

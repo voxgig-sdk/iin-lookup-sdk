@@ -5,16 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "voxgig-sdk-iin-lookup"
 version = "0.0.1"
-description = "IinLookup SDK for Python"
+description = "Unofficial generated Python SDK for the IIN Lookup public API. Not affiliated with or endorsed by the upstream API provider."
+readme = "README.md"
 license = "MIT"
 requires-python = ">=3.8"
+keywords = ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "iin-lookup"]
 dependencies = [
-    "requests>=2.33",
     "requests>=2.33",
 ]
 
 [project.urls]
-Homepage = "https://github.com/voxgig/iin-lookup-sdk"
+Homepage = "https://github.com/voxgig-sdk/iin-lookup-sdk"
+Repository = "https://github.com/voxgig-sdk/iin-lookup-sdk"
+Issues = "https://github.com/voxgig-sdk/iin-lookup-sdk/issues"
 
 # Explicit package list — setuptools auto-discovery refuses to pick when
 # multiple top-level dirs (core/entity/feature/utility) are present.
