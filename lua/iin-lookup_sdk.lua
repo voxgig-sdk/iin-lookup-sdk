@@ -244,6 +244,19 @@ end
 
 
 
+-- Idiomatic facade: client:overview():list() / client:overview():load({ id = ... })
+function IinLookupSDK:overview(data)
+  local EntityMod = require("entity.overview_entity")
+  if data == nil then
+    if self._overview == nil then
+      self._overview = EntityMod.new(self, nil)
+    end
+    return self._overview
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:overview() instead.
 function IinLookupSDK:Overview(data)
   local EntityMod = require("entity.overview_entity")
   return EntityMod.new(self, data)

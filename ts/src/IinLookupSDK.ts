@@ -2,6 +2,8 @@
 
 import { OverviewEntity } from './entity/OverviewEntity'
 
+export type * from './IinLookupTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class IinLookupSDK {
 
 
 
+  _overview?: OverviewEntity
+
+  // Idiomatic facade: `client.overview.list()` / `client.overview.load({ id })`.
+  get overview(): OverviewEntity {
+    return (this._overview ??= new OverviewEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.overview` instead. */
   Overview(data?: any) {
     const self = this
     return new OverviewEntity(self,data)

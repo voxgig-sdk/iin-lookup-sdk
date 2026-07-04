@@ -239,6 +239,7 @@
         }
       },
       "info": {
+        "auth": false,
         "description": "IIN API: Card IIN and BIN Lookup and Verification\n\nIIN API allows you to accurately identify the issuing bank, card type, country of origin, and other details from a credit or debit card number. This is essential for fraud prevention, payment processing, and customer verification.",
         "servers": [
           {
@@ -266,6 +267,7 @@
               "active": false,
               "name": "",
               "package": "",
+              "state": "pending",
               "url": "",
               "vault": {
                 "alias": "",
@@ -316,6 +318,7 @@
               "active": false,
               "name": "",
               "package": "",
+              "state": "pending",
               "url": "",
               "vault": {
                 "alias": "",
@@ -365,6 +368,7 @@
               "active": false,
               "name": "",
               "package": "",
+              "state": "pending",
               "url": "",
               "vault": {
                 "alias": "",
@@ -406,6 +410,7 @@
               "active": false,
               "name": "luarocks",
               "package": "",
+              "state": "pending",
               "url": "https://luarocks.org",
               "vault": {
                 "alias": "luarocks",
@@ -442,6 +447,7 @@
               "active": false,
               "name": "packagist",
               "package": "",
+              "state": "pending",
               "url": "https://packagist.org",
               "vault": {
                 "alias": "packagist",
@@ -484,6 +490,7 @@
               "active": false,
               "name": "pypi",
               "package": "",
+              "state": "pending",
               "url": "https://pypi.org",
               "vault": {
                 "alias": "pypi",
@@ -531,6 +538,7 @@
               "active": false,
               "name": "rubygems",
               "package": "",
+              "state": "pending",
               "url": "https://rubygems.org",
               "vault": {
                 "alias": "gem",
@@ -584,6 +592,7 @@
               "active": false,
               "name": "npm",
               "package": "",
+              "state": "pending",
               "url": "https://registry.npmjs.org",
               "vault": {
                 "alias": "npm",

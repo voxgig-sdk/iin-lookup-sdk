@@ -9,9 +9,10 @@ The PHP SDK for the IinLookup API — an entity-oriented client using PHP conven
 
 
 ## Install
-```bash
-composer require voxgig-sdk/iin-lookup
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/iin-lookup-sdk/releases](https://github.com/voxgig-sdk/iin-lookup-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,24 +26,25 @@ loading a specific record.
 <?php
 require_once 'iinlookup_sdk.php';
 
-$client = new IinLookupSDK([
-    "apikey" => getenv("IIN-LOOKUP_APIKEY"),
-]);
+$client = new IinLookupSDK();
 ```
 
-### 3. Load a overview
+### 3. Load an overview
 
 ```php
-[$result, $err] = $client->Overview()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->overview()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 ### 4. Create, update, and remove
 
 ```php
 // Create
-[$created, $_] = $client->Overview()->create(["name" => "Example"]);
+$created = $client->overview()->create(["name" => "Example"]);
 
 ```
 
@@ -54,28 +56,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -89,7 +94,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = IinLookupSDK::test();
 
-[$result, $err] = $client->IinLookup()->load(["id" => "test01"]);
+$result = $client->overview()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -123,8 +128,7 @@ $client = new IinLookupSDK([
 Create a `.env.local` file at the project root:
 
 ```
-IIN-LOOKUP_TEST_LIVE=TRUE
-IIN-LOOKUP_APIKEY=<your-key>
+IIN_LOOKUP_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -147,7 +151,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -193,8 +196,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -223,7 +230,7 @@ API path: `/iin`
 
 ### Overview
 
-Create an instance: `const overview = client.Overview()`
+Create an instance: `const overview = client.overview`
 
 #### Operations
 
@@ -235,13 +242,13 @@ Create an instance: `const overview = client.Overview()`
 #### Example: Load
 
 ```ts
-const overview = await client.Overview().load({ id: 'overview_id' })
+const overview = await client.overview.load({ id: 'overview_id' })
 ```
 
 #### Example: Create
 
 ```ts
-const overview = await client.Overview().create({
+const overview = await client.overview.create({
 })
 ```
 
@@ -317,11 +324,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$overview = $client->overview();
+$overview->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $overview->dataGet() now returns the loaded overview data
+// $overview->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

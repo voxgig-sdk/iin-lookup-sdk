@@ -85,6 +85,27 @@ func (e *OverviewEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Overview; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *OverviewEntity) DataTyped(data ...Overview) Overview {
+	if len(data) > 0 {
+		return typedFrom[Overview](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Overview](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Overview (all fields
+// optional at the wire level).
+func (e *OverviewEntity) MatchTyped(match ...Overview) Overview {
+	if len(match) > 0 {
+		return typedFrom[Overview](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Overview](e.Match())
+}
+
 
 func (e *OverviewEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *OverviewEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// OverviewLoadMatch and returns an Overview. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *OverviewEntity) LoadTyped(reqmatch OverviewLoadMatch, ctrl map[string]any) (Overview, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Overview{}, err
+	}
+	return typedFrom[Overview](res), nil
 }
 
 
@@ -139,6 +171,17 @@ func (e *OverviewEntity) Create(reqdata map[string]any, ctrl map[string]any) (an
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// OverviewCreateData and returns an Overview. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *OverviewEntity) CreateTyped(reqdata OverviewCreateData, ctrl map[string]any) (Overview, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Overview{}, err
+	}
+	return typedFrom[Overview](res), nil
 }
 
 

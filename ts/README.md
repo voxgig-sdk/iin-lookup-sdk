@@ -9,9 +9,12 @@ The TypeScript SDK for the IinLookup API — a type-safe, entity-oriented client
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/iin-lookup
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/iin-lookup-sdk/releases](https://github.com/voxgig-sdk/iin-lookup-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { IinLookupSDK } from 'iin-lookup'
+import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
 
-const client = new IinLookupSDK({
-  apikey: process.env.IIN-LOOKUP_APIKEY,
-})
+const client = new IinLookupSDK()
 ```
 
-### 3. Load a overview
+### 3. Load an overview
 
 ```ts
-const result = await client.Overview().load({ id: 'example_id' })
+const result = await client.overview.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -41,7 +42,7 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.Overview().create({
+const created = await client.overview.create({
   name: 'Example',
 })
 
@@ -89,7 +90,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = IinLookupSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.overview.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -97,7 +98,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new IinLookupSDK({ apikey: '...' })
+const client = new IinLookupSDK()
 const testClient = client.tester()
 ```
 
@@ -106,7 +107,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.overview
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -133,7 +134,6 @@ const logger = {
 }
 
 const client = new IinLookupSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -143,8 +143,7 @@ const client = new IinLookupSDK({
 Create a `.env.local` file at the project root:
 
 ```
-IIN-LOOKUP_TEST_LIVE=TRUE
-IIN-LOOKUP_APIKEY=<your-key>
+IIN_LOOKUP_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -162,7 +161,6 @@ cd ts && npm test
 
 ```ts
 new IinLookupSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -173,7 +171,6 @@ new IinLookupSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -275,7 +272,7 @@ API path: `/iin`
 
 ### Overview
 
-Create an instance: `const overview = client.Overview()`
+Create an instance: `const overview = client.overview`
 
 #### Operations
 
@@ -287,13 +284,13 @@ Create an instance: `const overview = client.Overview()`
 #### Example: Load
 
 ```ts
-const overview = await client.Overview().load({ id: 'overview_id' })
+const overview = await client.overview.load({ id: 'overview_id' })
 ```
 
 #### Example: Create
 
 ```ts
-const overview = await client.Overview().create({
+const overview = await client.overview.create({
 })
 ```
 
@@ -355,7 +352,7 @@ iin-lookup/
 Import the SDK from the package root:
 
 ```ts
-import { IinLookupSDK } from 'iin-lookup'
+import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
 ```
 
 ### Entity state
@@ -365,11 +362,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const overview = client.overview
+await overview.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// overview.data() now returns the loaded overview data
+// overview.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

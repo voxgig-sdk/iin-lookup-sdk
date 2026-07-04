@@ -43,15 +43,13 @@ class OverviewEntityTest extends TestCase
         $overview_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.overview"), "overview_ref01"));
 
-        [$overview_ref01_data_result, $err] = $overview_ref01_ent->create($overview_ref01_data, null);
-        $this->assertNull($err);
+        $overview_ref01_data_result = $overview_ref01_ent->create($overview_ref01_data, null);
         $overview_ref01_data = Helpers::to_map($overview_ref01_data_result);
         $this->assertNotNull($overview_ref01_data);
 
         // LOAD
         $overview_ref01_match_dt0 = [];
-        [$overview_ref01_data_dt0_loaded, $err] = $overview_ref01_ent->load($overview_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $overview_ref01_data_dt0_loaded = $overview_ref01_ent->load($overview_ref01_match_dt0, null);
         $this->assertNotNull($overview_ref01_data_dt0_loaded);
 
     }
@@ -86,7 +84,6 @@ function overview_basic_setup($extra)
         "IINLOOKUP_TEST_OVERVIEW_ENTID" => $idmap,
         "IINLOOKUP_TEST_LIVE" => "FALSE",
         "IINLOOKUP_TEST_EXPLAIN" => "FALSE",
-        "IINLOOKUP_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +95,6 @@ function overview_basic_setup($extra)
     if ($env["IINLOOKUP_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["IINLOOKUP_APIKEY"],
             ],
             $extra ?? [],
         ]);

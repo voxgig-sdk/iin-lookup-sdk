@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -110,7 +109,7 @@ Alias for `IinLookupSDK.test()`.
 ## OverviewEntity
 
 ```ts
-const overview = client.Overview()
+const overview = client.overview
 ```
 
 ### Operations
@@ -120,7 +119,7 @@ const overview = client.Overview()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Overview().create({
+const result = await client.overview.create({
 })
 ```
 
@@ -129,7 +128,7 @@ const result = await client.Overview().create({
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Overview().load({ id: 'overview_id' })
+const result = await client.overview.load({ id: 'overview_id' })
 ```
 
 ### Common Methods

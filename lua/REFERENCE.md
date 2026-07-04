@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -84,7 +83,7 @@ same parameters as `direct()`.
 ## OverviewEntity
 
 ```lua
-local overview = client:Overview(nil)
+local overview = client:overview(nil)
 ```
 
 ### Operations
@@ -94,7 +93,7 @@ local overview = client:Overview(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Overview():create({
+local result, err = client:overview():create({
 })
 ```
 
@@ -103,7 +102,7 @@ local result, err = client:Overview():create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Overview():load({ id = "overview_id" })
+local result, err = client:overview():load({ id = "overview_id" })
 ```
 
 ### Common Methods

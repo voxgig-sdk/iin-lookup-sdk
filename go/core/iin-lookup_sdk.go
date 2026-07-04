@@ -245,6 +245,9 @@ func (sdk *IinLookupSDK) Direct(fetchargs map[string]any) (map[string]any, error
 }
 
 
+// Overview returns a Overview entity bound to this client.
+// Idiomatic usage: client.Overview(nil).List(nil, nil) or
+// client.Overview(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *IinLookupSDK) Overview(data map[string]any) IinLookupEntity {
 	return NewOverviewEntityFunc(sdk, data)
 }

@@ -99,14 +99,12 @@ func overviewDirectSetup(mockres any) *overviewDirectSetupResult {
 	env := envOverride(map[string]any{
 		"IINLOOKUP_TEST_OVERVIEW_ENTID": map[string]any{},
 		"IINLOOKUP_TEST_LIVE":    "FALSE",
-		"IINLOOKUP_APIKEY":       "NONE",
 	})
 
 	live := env["IINLOOKUP_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["IINLOOKUP_APIKEY"],
 		}
 		client := sdk.NewIinLookupSDK(mergedOpts)
 

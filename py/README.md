@@ -9,11 +9,9 @@ The Python SDK for the IinLookup API — an entity-oriented client following Pyt
 
 
 ## Install
-```bash
-pip install voxgig-sdk-iin-lookup
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/iin-lookup-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -28,28 +26,26 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from iinlookup_sdk import IinLookupSDK
 
-client = IinLookupSDK({
-    "apikey": os.environ.get("IIN-LOOKUP_APIKEY"),
-})
+client = IinLookupSDK()
 ```
 
-### 3. Load a overview
+### 3. Load an overview
 
 ```python
-result, err = client.Overview().load({"id": "example_id"})
-if err:
-    raise Exception(err)
-print(result)
+try:
+    result = client.overview.load({"id": "example_id"})
+    print(result)
+except Exception as err:
+    print(f"load failed: {err}")
 ```
 
 ### 4. Create, update, and remove
 
 ```python
 # Create
-created, _ = client.Overview().create({"name": "Example"})
+created = client.overview.create({"name": "Example"})
 
 ```
 
@@ -61,29 +57,28 @@ created, _ = client.Overview().create({"name": "Example"})
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -97,7 +92,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = IinLookupSDK.test()
 
-result, err = client.IinLookup().load({"id": "test01"})
+result = client.overview.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -127,8 +122,7 @@ client = IinLookupSDK({
 Create a `.env.local` file at the project root:
 
 ```
-IIN-LOOKUP_TEST_LIVE=TRUE
-IIN-LOOKUP_APIKEY=<your-key>
+IIN_LOOKUP_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -152,7 +146,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |
@@ -174,8 +167,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Overview` | `(data) -> OverviewEntity` | Create a Overview entity instance. |
 
 ### Entity interface
@@ -184,11 +177,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -198,8 +191,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -228,7 +225,7 @@ API path: `/iin`
 
 ### Overview
 
-Create an instance: `const overview = client.Overview()`
+Create an instance: `const overview = client.overview`
 
 #### Operations
 
@@ -240,13 +237,13 @@ Create an instance: `const overview = client.Overview()`
 #### Example: Load
 
 ```ts
-const overview = await client.Overview().load({ id: 'overview_id' })
+const overview = await client.overview.load({ id: 'overview_id' })
 ```
 
 #### Example: Create
 
 ```ts
-const overview = await client.Overview().create({
+const overview = await client.overview.create({
 })
 ```
 
@@ -321,11 +318,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+overview = client.overview
+overview.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# overview.data_get() now returns the loaded overview data
+# overview.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

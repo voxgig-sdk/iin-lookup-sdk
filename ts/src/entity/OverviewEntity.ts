@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Overview,
+  OverviewLoadMatch,
+  OverviewCreateData,
+} from '../IinLookupTypes'
 
 // TODO: needs Entity superclass
-class OverviewEntity extends IinLookupEntityBase {
+class OverviewEntity extends IinLookupEntityBase<Overview> {
 
   constructor(client: IinLookupSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class OverviewEntity extends IinLookupEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: OverviewLoadMatch, ctrl?: Control): Promise<Overview> {
 
     const utility = this._utility
 
@@ -136,7 +141,9 @@ class OverviewEntity extends IinLookupEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Overview> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
@@ -144,7 +151,7 @@ class OverviewEntity extends IinLookupEntityBase {
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: OverviewCreateData, ctrl?: Control): Promise<Overview> {
 
     const utility = this._utility
     const {
@@ -243,7 +250,9 @@ class OverviewEntity extends IinLookupEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Overview> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

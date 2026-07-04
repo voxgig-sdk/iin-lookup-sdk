@@ -44,15 +44,12 @@ class TestOverviewEntity:
         overview_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.overview"), "overview_ref01"))
 
-        overview_ref01_data_result, err = overview_ref01_ent.create(overview_ref01_data, None)
-        assert err is None
-        overview_ref01_data = helpers.to_map(overview_ref01_data_result)
+        overview_ref01_data = helpers.to_map(overview_ref01_ent.create(overview_ref01_data, None))
         assert overview_ref01_data is not None
 
         # LOAD
         overview_ref01_match_dt0 = {}
-        overview_ref01_data_dt0_loaded, err = overview_ref01_ent.load(overview_ref01_match_dt0, None)
-        assert err is None
+        overview_ref01_data_dt0_loaded = overview_ref01_ent.load(overview_ref01_match_dt0, None)
         assert overview_ref01_data_dt0_loaded is not None
 
 
@@ -93,7 +90,6 @@ def _overview_basic_setup(extra):
         "IINLOOKUP_TEST_OVERVIEW_ENTID": idmap,
         "IINLOOKUP_TEST_LIVE": "FALSE",
         "IINLOOKUP_TEST_EXPLAIN": "FALSE",
-        "IINLOOKUP_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -104,7 +100,6 @@ def _overview_basic_setup(extra):
     if env.get("IINLOOKUP_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("IINLOOKUP_APIKEY"),
             },
             extra or {},
         ])

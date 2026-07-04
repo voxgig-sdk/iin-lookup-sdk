@@ -45,6 +45,7 @@ class OverviewEntity
     end
   end
 
+  # @return [Overview, Hash] the current Overview data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class OverviewEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Overview fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Overview.
+  #
+  # @param reqmatch [OverviewLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Overview, Hash] the loaded Overview; raises IinLookupError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -88,6 +95,11 @@ class OverviewEntity
   
 
   
+  # Create a new Overview.
+  #
+  # @param reqdata [OverviewCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Overview, Hash] the created Overview; raises IinLookupError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch OverviewLoadMatch
+---@param ctrl? table
+---@return Overview
+---@return string? err
 function OverviewEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -106,6 +110,10 @@ end
 
 
 
+---@param reqdata OverviewCreateData
+---@param ctrl? table
+---@return Overview
+---@return string? err
 function OverviewEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

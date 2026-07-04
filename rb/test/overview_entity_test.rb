@@ -36,15 +36,13 @@ class OverviewEntityTest < Minitest::Test
     overview_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.overview"), "overview_ref01"))
 
-    overview_ref01_data_result, err = overview_ref01_ent.create(overview_ref01_data, nil)
-    assert_nil err
+    overview_ref01_data_result = overview_ref01_ent.create(overview_ref01_data, nil)
     overview_ref01_data = Helpers.to_map(overview_ref01_data_result)
     assert !overview_ref01_data.nil?
 
     # LOAD
     overview_ref01_match_dt0 = {}
-    overview_ref01_data_dt0_loaded, err = overview_ref01_ent.load(overview_ref01_match_dt0, nil)
-    assert_nil err
+    overview_ref01_data_dt0_loaded = overview_ref01_ent.load(overview_ref01_match_dt0, nil)
     assert !overview_ref01_data_dt0_loaded.nil?
 
   end
@@ -83,7 +81,6 @@ def overview_basic_setup(extra)
     "IINLOOKUP_TEST_OVERVIEW_ENTID" => idmap,
     "IINLOOKUP_TEST_LIVE" => "FALSE",
     "IINLOOKUP_TEST_EXPLAIN" => "FALSE",
-    "IINLOOKUP_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +92,6 @@ def overview_basic_setup(extra)
   if env["IINLOOKUP_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["IINLOOKUP_APIKEY"],
       },
       extra || {},
     ])
