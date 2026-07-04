@@ -33,9 +33,10 @@ $client = new IinLookupSDK();
 
 ```php
 try {
-    $result = $client->overview()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Overview record (throws on error).
+    $overview = $client->Overview()->load(["id" => "example_id"]);
+    print_r($overview);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -43,8 +44,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->overview()->create(["name" => "Example"]);
+// create() returns the bare created Overview record.
+$created = $client->Overview()->create(["name" => "Example"]);
 
 ```
 
@@ -89,13 +90,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = IinLookupSDK::test();
+$client = IinLookupSDK::test([
+    "entity" => ["overview" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->overview()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$overview = $client->Overview()->load(["id" => "test01"]);
+print_r($overview);
 ```
 
 ### Use a custom fetch function
@@ -174,7 +179,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Overview` | `($data): OverviewEntity` | Create a Overview entity instance. |
+| `Overview` | `($data): OverviewEntity` | Create an Overview entity instance. |
 
 ### Entity interface
 
@@ -230,7 +235,7 @@ API path: `/iin`
 
 ### Overview
 
-Create an instance: `const overview = client.overview`
+Create an instance: `$overview = $client->Overview();`
 
 #### Operations
 
@@ -241,15 +246,16 @@ Create an instance: `const overview = client.overview`
 
 #### Example: Load
 
-```ts
-const overview = await client.overview.load({ id: 'overview_id' })
+```php
+// load() returns the bare Overview record (throws on error).
+$overview = $client->Overview()->load(["id" => "overview_id"]);
 ```
 
 #### Example: Create
 
-```ts
-const overview = await client.overview.create({
-})
+```php
+$overview = $client->Overview()->create([
+]);
 ```
 
 
@@ -324,7 +330,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$overview = $client->overview();
+$overview = $client->Overview();
 $overview->load(["id" => "example_id"]);
 
 // $overview->dataGet() now returns the loaded overview data

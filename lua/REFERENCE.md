@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## OverviewEntity
 
 ```lua
-local overview = client:overview(nil)
+local overview = client:Overview(nil)
 ```
 
 ### Operations
@@ -93,7 +93,7 @@ local overview = client:overview(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:overview():create({
+local result, err = client:Overview():create({
 })
 ```
 
@@ -102,7 +102,7 @@ local result, err = client:overview():create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:overview():load({ id = "overview_id" })
+local result, err = client:Overview():load({ id = "overview_id" })
 ```
 
 ### Common Methods

@@ -220,25 +220,15 @@ class IinLookupSDK:
         }
 
 
-    @property
-    def overview(self):
-        """Idiomatic facade: client.overview.list() / client.overview.load({"id": ...})."""
-        from entity.overview_entity import OverviewEntity
-        cached = getattr(self, "_overview", None)
-        if cached is None:
-            cached = OverviewEntity(self, None)
-            self._overview = cached
-        return cached
-
-    def Overview(self, data=None):
-        # Deprecated: use client.overview instead.
+    def Overview(self, data=None) -> "OverviewEntity":
+        """Entity factory: client.Overview().list({}) / client.Overview().load({"id": ...})."""
         from entity.overview_entity import OverviewEntity
         return OverviewEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "IinLookupSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class IinLookupSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.overview_entity import OverviewEntity

@@ -208,13 +208,7 @@ class IinLookupSDK
   end
 
 
-  # Idiomatic facade: client.overview.list / client.overview.load({ "id" => ... })
-  def overview
-    require_relative 'entity/overview_entity'
-    @overview ||= OverviewEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.overview instead.
+  # Canonical facade: client.Overview.list / client.Overview.load({ "id" => ... })
   def Overview(data = nil)
     require_relative 'entity/overview_entity'
     OverviewEntity.new(self, data)

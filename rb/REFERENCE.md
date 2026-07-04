@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## OverviewEntity
 
 ```ruby
-overview = client.overview
+overview = client.Overview
 ```
 
 ### Operations
@@ -96,7 +96,7 @@ overview = client.overview
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.overview.create({
+result = client.Overview.create({
 })
 ```
 
@@ -105,7 +105,7 @@ result = client.overview.create({
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.overview.load({ "id" => "overview_id" })
+result = client.Overview.load({ "id" => "overview_id" })
 ```
 
 ### Common Methods

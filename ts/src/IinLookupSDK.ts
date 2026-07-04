@@ -204,14 +204,7 @@ class IinLookupSDK {
 
 
 
-  _overview?: OverviewEntity
-
-  // Idiomatic facade: `client.overview.list()` / `client.overview.load({ id })`.
-  get overview(): OverviewEntity {
-    return (this._overview ??= new OverviewEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.overview` instead. */
+  // Entity access: `client.Overview().list()` / `client.Overview().load({ id })`.
   Overview(data?: any) {
     const self = this
     return new OverviewEntity(self,data)

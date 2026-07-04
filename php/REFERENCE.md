@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## OverviewEntity
 
 ```php
-$overview = $client->overview();
+$overview = $client->Overview();
 ```
 
 ### Operations
@@ -95,7 +95,7 @@ $overview = $client->overview();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->overview()->create([
+$result = $client->Overview()->create([
 ]);
 ```
 
@@ -104,7 +104,7 @@ $result = $client->overview()->create([
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->overview()->load(["id" => "overview_id"]);
+$result = $client->Overview()->load(["id" => "overview_id"]);
 ```
 
 ### Common Methods

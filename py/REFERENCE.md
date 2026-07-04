@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## OverviewEntity
 
 ```python
-overview = client.overview
+overview = client.Overview()
 ```
 
 ### Operations
@@ -90,7 +90,7 @@ overview = client.overview
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.overview.create({
+result = client.Overview().create({
 })
 ```
 
@@ -99,7 +99,7 @@ result = client.overview.create({
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.overview.load({"id": "overview_id"})
+result = client.Overview().load({"id": "overview_id"})
 ```
 
 ### Common Methods

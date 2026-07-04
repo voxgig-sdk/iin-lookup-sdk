@@ -109,7 +109,7 @@ Alias for `IinLookupSDK.test()`.
 ## OverviewEntity
 
 ```ts
-const overview = client.overview
+const overview = client.Overview()
 ```
 
 ### Operations
@@ -119,7 +119,7 @@ const overview = client.overview
 Create a new entity with the given data.
 
 ```ts
-const result = await client.overview.create({
+const result = await client.Overview().create({
 })
 ```
 
@@ -128,7 +128,7 @@ const result = await client.overview.create({
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.overview.load({ id: 'overview_id' })
+const result = await client.Overview().load({ id: 'overview_id' })
 ```
 
 ### Common Methods

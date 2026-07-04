@@ -233,10 +233,10 @@ class IinLookupSDK
 
     private $_overview = null;
 
-    // Idiomatic facade: $client->overview()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Overview() (PHP method
-    // names are case-insensitive).
-    public function overview($data = null)
+    // Canonical facade: $client->Overview()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->overview()
+    // resolves here too.
+    public function Overview($data = null)
     {
         require_once __DIR__ . '/entity/overview_entity.php';
         if ($data === null) {

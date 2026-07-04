@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:overview():list() / client:overview():load({ id = ... })
-function IinLookupSDK:overview(data)
+-- Idiomatic facade: client:Overview():list() / client:Overview():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function IinLookupSDK:Overview(data)
   local EntityMod = require("entity.overview_entity")
   if data == nil then
     if self._overview == nil then
@@ -253,12 +254,6 @@ function IinLookupSDK:overview(data)
     end
     return self._overview
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:overview() instead.
-function IinLookupSDK:Overview(data)
-  local EntityMod = require("entity.overview_entity")
   return EntityMod.new(self, data)
 end
 

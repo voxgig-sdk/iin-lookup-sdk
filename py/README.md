@@ -33,10 +33,12 @@ client = IinLookupSDK()
 
 ### 3. Load an overview
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.overview.load({"id": "example_id"})
-    print(result)
+    overview = client.Overview().load({"id": "example_id"})
+    print(overview)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -44,8 +46,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.overview.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.Overview().create({"name": "Example"})
 
 ```
 
@@ -92,8 +94,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = IinLookupSDK.test()
 
-result = client.overview.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+overview = client.Overview().load({"id": "test01"})
+# overview contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -169,7 +172,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Overview` | `(data) -> OverviewEntity` | Create a Overview entity instance. |
+| `Overview` | `(data) -> OverviewEntity` | Create an Overview entity instance. |
 
 ### Entity interface
 
@@ -225,7 +228,7 @@ API path: `/iin`
 
 ### Overview
 
-Create an instance: `const overview = client.overview`
+Create an instance: `overview = client.Overview()`
 
 #### Operations
 
@@ -236,14 +239,14 @@ Create an instance: `const overview = client.overview`
 
 #### Example: Load
 
-```ts
-const overview = await client.overview.load({ id: 'overview_id' })
+```python
+overview = client.Overview().load({"id": "overview_id"})
 ```
 
 #### Example: Create
 
-```ts
-const overview = await client.overview.create({
+```python
+overview = client.Overview().create({
 })
 ```
 
@@ -318,7 +321,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-overview = client.overview
+overview = client.Overview()
 overview.load({"id": "example_id"})
 
 # overview.data_get() now returns the loaded overview data

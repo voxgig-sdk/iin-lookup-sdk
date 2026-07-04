@@ -26,9 +26,9 @@ import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
 
 const client = new IinLookupSDK()
 
-// Load overview data
-const overview = await client.overview.load({})
-console.log(overview.data)
+// Load overview data (returns a Overview)
+const overview = await client.Overview().load()
+console.log(overview)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -84,8 +84,8 @@ from iinlookup_sdk import IinLookupSDK
 client = IinLookupSDK()
 
 
-# Load a specific overview
-overview = client.overview.load({"id": "example_id"})
+# Load a specific overview (returns the record, raises on error)
+overview = client.Overview().load({"id": "example_id"})
 print(overview)
 ```
 
@@ -98,8 +98,8 @@ require_once 'iinlookup_sdk.php';
 $client = new IinLookupSDK();
 
 
-// Load a specific overview
-$overview = $client->overview()->load(["id" => "example_id"]);
+// Load a specific overview (returns the bare record; throws on error)
+$overview = $client->Overview()->load(["id" => "example_id"]);
 print_r($overview);
 ```
 
@@ -123,8 +123,8 @@ require_relative "IinLookup_sdk"
 client = IinLookupSDK.new
 
 
-# Load a specific overview
-overview = client.overview.load({ "id" => "example_id" })
+# Load a specific overview (returns the bare record; raises on error)
+overview = client.Overview.load({ "id" => "example_id" })
 puts overview
 ```
 
@@ -137,7 +137,7 @@ local client = sdk.new()
 
 
 -- Load a specific overview
-local overview, err = client:overview():load({ id = "example_id" })
+local overview, err = client:Overview():load({ id = "example_id" })
 print(overview)
 ```
 
@@ -150,22 +150,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = IinLookupSDK.test()
-const result = await client.overview.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const overview = await client.Overview().load({ id: 'test01' })
+// overview is a bare Overview populated with mock data
+console.log(overview)
 ```
 
 ### Python
 
 ```python
 client = IinLookupSDK.test()
-result = client.overview.load({"id": "test01"})
+overview = client.Overview().load({"id": "test01"})
+print(overview)
 ```
 
 ### PHP
 
 ```php
-$client = IinLookupSDK::test();
-$result = $client->overview()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = IinLookupSDK::test([
+    "entity" => ["overview" => ["test01" => ["id" => "test01"]]],
+]);
+$overview = $client->Overview()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -180,15 +185,18 @@ result, err := client.Overview(nil).Load(
 ### Ruby
 
 ```ruby
-client = IinLookupSDK.test
-result = client.overview.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = IinLookupSDK.test({
+  "entity" => { "overview" => { "test01" => { "id" => "test01" } } },
+})
+overview = client.Overview.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:overview():load({ id = "test01" })
+local result, err = client:Overview():load({ id = "test01" })
 ```
 
 ## How it works
@@ -236,6 +244,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 
