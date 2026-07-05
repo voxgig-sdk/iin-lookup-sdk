@@ -8,7 +8,9 @@
 export interface Overview {
 }
 
-export type OverviewLoadMatch = Partial<Overview>
+export interface OverviewLoadMatch {
+}
 
-export type OverviewCreateData = Partial<Overview>
+export interface OverviewCreateData {
+}
 

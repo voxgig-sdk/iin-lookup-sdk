@@ -8,7 +8,7 @@ Complete API reference for the IinLookup PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/iin-lookup_sdk.php';
+require_once __DIR__ . '/iinlookup_sdk.php';
 
 $client = new IinLookupSDK($options);
 ```
@@ -45,11 +45,11 @@ $client = IinLookupSDK::test();
 
 Create a new `OverviewEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): IinLookupUtility`
 
 Return a copy of the SDK utility object.
 
@@ -104,24 +104,24 @@ $result = $client->Overview()->create([
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Overview()->load(["id" => "overview_id"]);
+$result = $client->Overview()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -130,7 +130,7 @@ Set the entity match criteria.
 Create a new `OverviewEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

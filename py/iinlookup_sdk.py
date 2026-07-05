@@ -221,7 +221,7 @@ class IinLookupSDK:
 
 
     def Overview(self, data=None) -> "OverviewEntity":
-        """Entity factory: client.Overview().list({}) / client.Overview().load({"id": ...})."""
+        """Entity factory: client.Overview().list() / client.Overview().load({"id": ...})."""
         from entity.overview_entity import OverviewEntity
         return OverviewEntity(self, data)
 

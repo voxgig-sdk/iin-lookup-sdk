@@ -8,7 +8,7 @@ Complete API reference for the IinLookup Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'iin-lookup_sdk'
+require_relative 'IinLookup_sdk'
 
 client = IinLookupSDK.new(options)
 ```
@@ -105,7 +105,7 @@ result = client.Overview.create({
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Overview.load({ "id" => "overview_id" })
+result = client.Overview.load()
 ```
 
 ### Common Methods

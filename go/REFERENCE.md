@@ -109,7 +109,7 @@ result, err := client.Overview(nil).Create(map[string]any{
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Overview(nil).Load(map[string]any{"id": "overview_id"}, nil)
+result, err := client.Overview(nil).Load(nil, nil)
 ```
 
 ### Common Methods

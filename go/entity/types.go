@@ -12,13 +12,11 @@ import "encoding/json"
 type Overview struct {
 }
 
-// OverviewLoadMatch mirrors the overview fields as an all-optional match
-// filter (Go analog of Partial<Overview>).
+// OverviewLoadMatch is the typed request payload for Overview.LoadTyped.
 type OverviewLoadMatch struct {
 }
 
-// OverviewCreateData mirrors the overview fields as an all-optional match
-// filter (Go analog of Partial<Overview>).
+// OverviewCreateData is the typed request payload for Overview.CreateTyped.
 type OverviewCreateData struct {
 }
 

@@ -128,7 +128,7 @@ const result = await client.Overview().create({
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Overview().load({ id: 'overview_id' })
+const result = await client.Overview().load()
 ```
 
 ### Common Methods

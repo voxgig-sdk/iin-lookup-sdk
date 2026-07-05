@@ -12,11 +12,11 @@
 class Overview
 end
 
-# Match filter for Overview#load (any subset of Overview fields).
+# Request payload for Overview#load.
 class OverviewLoadMatch
 end
 
-# Match filter for Overview#create (any subset of Overview fields).
+# Request payload for Overview#create.
 class OverviewCreateData
 end
 

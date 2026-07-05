@@ -8,7 +8,7 @@ Complete API reference for the IinLookup Python SDK.
 ### Constructor
 
 ```python
-from iin-lookup_sdk import IinLookupSDK
+from iinlookup_sdk import IinLookupSDK
 
 client = IinLookupSDK(options)
 ```
@@ -99,7 +99,7 @@ result = client.Overview().create({
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Overview().load({"id": "overview_id"})
+result = client.Overview().load()
 ```
 
 ### Common Methods

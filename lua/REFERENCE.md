@@ -102,7 +102,7 @@ local result, err = client:Overview():create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Overview():load({ id = "overview_id" })
+local result, err = client:Overview():load()
 ```
 
 ### Common Methods
