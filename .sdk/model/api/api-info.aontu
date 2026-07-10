@@ -13,9 +13,8 @@ IIN API allows you to accurately identify the issuing bank, card type, country o
           url: "http://{{base_url}}"
         }
       ]
+      summary: "IIN API: Card IIN and BIN Lookup and Verification"
       title: "IIN Lookup API"
       version: "1.0.0"
     }
   }
-}
-

@@ -284,8 +284,8 @@ Create an instance: `overview := client.Overview(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Example: Load
 
@@ -302,6 +302,10 @@ fmt.Println(overview) // the loaded record
 ```go
 result, err := client.Overview(nil).Create(map[string]any{
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

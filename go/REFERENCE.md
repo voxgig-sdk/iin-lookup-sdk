@@ -91,9 +91,22 @@ same parameters as `Direct()`.
 
 ```go
 overview := client.Overview(nil)
+fmt.Println(overview.GetName()) // "overview"
 ```
 
 ### Operations
+
+#### `Load(reqmatch, ctrl map[string]any) (any, error)`
+
+Load a single entity matching the given criteria.
+
+```go
+result, err := client.Overview(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
 
 #### `Create(reqdata, ctrl map[string]any) (any, error)`
 
@@ -102,14 +115,10 @@ Create a new entity with the given data.
 ```go
 result, err := client.Overview(nil).Create(map[string]any{
 }, nil)
-```
-
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
-
-Load a single entity matching the given criteria.
-
-```go
-result, err := client.Overview(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

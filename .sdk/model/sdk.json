@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -241,11 +238,13 @@
       "info": {
         "auth": false,
         "description": "IIN API: Card IIN and BIN Lookup and Verification\n\nIIN API allows you to accurately identify the issuing bank, card type, country of origin, and other details from a credit or debit card number. This is essential for fraud prevention, payment processing, and customer verification.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "url": "http://{{base_url}}"
           }
         ],
+        "summary": "IIN API: Card IIN and BIN Lookup and Verification",
         "title": "IIN Lookup API",
         "version": "1.0.0"
       },
@@ -300,6 +299,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -350,6 +352,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
