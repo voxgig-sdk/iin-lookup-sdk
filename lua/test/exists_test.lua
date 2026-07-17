@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- IinLookup SDK exists test
 
 local sdk = require("iin-lookup_sdk")
 
