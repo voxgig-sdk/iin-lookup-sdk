@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import IinLookupSDK
-from core.error import IinLookupError
-from core.result import IinLookupResult
-from core.response import IinLookupResponse
-from core.spec import IinLookupSpec
-from feature.base_feature import IinLookupBaseFeature
+from projectname_sdk.core.error import IinLookupError
+from projectname_sdk.core.result import IinLookupResult
+from projectname_sdk.core.response import IinLookupResponse
+from projectname_sdk.core.spec import IinLookupSpec
+from projectname_sdk.feature.base_feature import IinLookupBaseFeature
 
 
 def _client():

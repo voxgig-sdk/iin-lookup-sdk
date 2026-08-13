@@ -16,11 +16,11 @@
 import pytest
 
 from iinlookup_sdk import IinLookupSDK
-from core.error import IinLookupError
-from core.result import IinLookupResult
-from core.response import IinLookupResponse
-from core.spec import IinLookupSpec
-from feature.base_feature import IinLookupBaseFeature
+from iinlookup_sdk.core.error import IinLookupError
+from iinlookup_sdk.core.result import IinLookupResult
+from iinlookup_sdk.core.response import IinLookupResponse
+from iinlookup_sdk.core.spec import IinLookupSpec
+from iinlookup_sdk.feature.base_feature import IinLookupBaseFeature
 
 
 def _client():

@@ -35,7 +35,7 @@ $client = new IinLookupSDK();
 
 ```php
 try {
-    // load() returns the bare Overview record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Overview record (throws on error).
     $overview = $client->Overview()->load();
     print_r($overview);
 } catch (\Throwable $err) {
@@ -46,7 +46,7 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created Overview record.
+// create() returns the ENTITY — call data_get() for the created Overview record.
 $created = $client->Overview()->create([]);
 
 ```
@@ -131,7 +131,8 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = IinLookupSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $overview = $client->Overview()->load();
 print_r($overview);
 ```
@@ -231,7 +232,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -277,7 +278,7 @@ Create an instance: `$overview = $client->Overview();`
 #### Example: Load
 
 ```php
-// load() returns the bare Overview record (throws on error).
+// load() returns the ENTITY — call data_get() for the Overview record (throws on error).
 $overview = $client->Overview()->load();
 ```
 

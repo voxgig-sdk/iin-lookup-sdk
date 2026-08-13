@@ -59,11 +59,11 @@ def overview_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "IINLOOKUP_TEST_OVERVIEW_ENTID" => {},
-    "IINLOOKUP_TEST_LIVE" => "FALSE",
+    "IIN_LOOKUP_TEST_OVERVIEW_ENTID" => {},
+    "IIN_LOOKUP_TEST_LIVE" => "FALSE",
   })
 
-  live = env["IINLOOKUP_TEST_LIVE"] == "TRUE"
+  live = env["IIN_LOOKUP_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

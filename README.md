@@ -36,9 +36,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = IinLookupSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = IinLookupSDK.test({
+  entity: {
+    overview: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const overview = await client.Overview().load()
-// overview is a bare Overview populated with mock data
+// overview is the Overview entity, populated with mock data
+// — call overview.data() for the record itself
 console.log(overview)
 ```
 
@@ -180,7 +189,7 @@ require_once 'iinlookup_sdk.php';
 $client = new IinLookupSDK();
 
 
-// Load a specific overview (returns the bare record; throws on error)
+// Load a specific overview (returns the ENTITY; call data_get() for the record; throws on error)
 $overview = $client->Overview()->load();
 print_r($overview);
 ```
@@ -208,7 +217,7 @@ require_relative "IinLookup_sdk"
 client = IinLookupSDK.new
 
 
-# Load a specific overview (returns the bare record; raises on error)
+# Load a specific overview (returns the ENTITY; call data_get for the record)
 overview = client.Overview.load()
 puts overview
 ```
@@ -342,6 +351,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [http://{{base_url}}](http://{{base_url}})
 

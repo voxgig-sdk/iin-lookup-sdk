@@ -26,8 +26,8 @@ import {
 describe('OverviewEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when IINLOOKUP_TEST_LIVE=TRUE.
-  afterEach(liveDelay('IINLOOKUP_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when IIN_LOOKUP_TEST_LIVE=TRUE.
+  afterEach(liveDelay('IIN_LOOKUP_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = IinLookupSDK.test()
@@ -62,13 +62,13 @@ describe('OverviewEntity', async () => {
     const overview_ref01_ent = client.Overview()
     let overview_ref01_data = setup.data.new.overview['overview_ref01']
 
-    overview_ref01_data = await overview_ref01_ent.create(overview_ref01_data)
+    overview_ref01_data = (await overview_ref01_ent.create(overview_ref01_data)).data()
     assert(null != overview_ref01_data)
 
 
     // LOAD
     const overview_ref01_match_dt0: any = {}
-    const overview_ref01_data_dt0 = await overview_ref01_ent.load(overview_ref01_match_dt0)
+    const overview_ref01_data_dt0 = (await overview_ref01_ent.load(overview_ref01_match_dt0)).data()
     assert(null != overview_ref01_data_dt0)
 
 

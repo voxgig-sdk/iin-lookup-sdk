@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# IinLookup SDK exists test
 
 import pytest
 from iinlookup_sdk import IinLookupSDK

@@ -18,3 +18,5 @@ IIN API allows you to accurately identify the issuing bank, card type, country o
       version: "1.0.0"
     }
   }
+}
+

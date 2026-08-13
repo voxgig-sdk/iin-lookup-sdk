@@ -49,7 +49,7 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created Overview
+// Create — returns the created Overview ENTITY (.data() for the record)
 const created = await client.Overview().create({})
 
 ```
@@ -129,7 +129,8 @@ Create a mock client for unit testing — no server required:
 const client = IinLookupSDK.test()
 
 const overview = await client.Overview().load()
-// overview is a bare entity populated with mock response data
+// overview is the entity, populated with mock response data
+// — call overview.data() for the record itself
 console.log(overview)
 ```
 

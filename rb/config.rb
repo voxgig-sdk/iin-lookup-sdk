@@ -15,6 +15,9 @@ module IinLookupConfig
       },
       "options" => {
         "base" => "http://{{base_url}}",
+        "server" => {
+          "base_url" => "",
+        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -34,6 +37,7 @@ module IinLookupConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/iin",
                   "parts" => [
@@ -77,6 +81,7 @@ module IinLookupConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/iin",
                   "parts" => [

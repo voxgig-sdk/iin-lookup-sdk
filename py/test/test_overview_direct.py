@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from iinlookup_sdk.utility.voxgig_struct import voxgig_struct as vs
 from iinlookup_sdk import IinLookupSDK
-from core import helpers
+from iinlookup_sdk.core import helpers
 from test import runner
 
 
@@ -56,11 +56,11 @@ def _overview_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "IINLOOKUP_TEST_OVERVIEW_ENTID": {},
-        "IINLOOKUP_TEST_LIVE": "FALSE",
+        "IIN_LOOKUP_TEST_OVERVIEW_ENTID": {},
+        "IIN_LOOKUP_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("IINLOOKUP_TEST_LIVE") == "TRUE"
+    live = env.get("IIN_LOOKUP_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

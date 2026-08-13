@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ IinLookupUtility::setRegistrar(function (IinLookupUtility $u): void {
     $u->prepare_params = [IinLookupPrepareParams::class, 'call'];
     $u->prepare_path = [IinLookupPreparePath::class, 'call'];
     $u->prepare_query = [IinLookupPrepareQuery::class, 'call'];
+    $u->graphql_body = [IinLookupGraphql::class, 'body'];
+    $u->graphql_errors = [IinLookupGraphql::class, 'errors'];
     $u->result_basic = [IinLookupResultBasic::class, 'call'];
     $u->result_body = [IinLookupResultBody::class, 'call'];
     $u->result_headers = [IinLookupResultHeaders::class, 'call'];

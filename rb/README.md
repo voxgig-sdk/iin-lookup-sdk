@@ -34,7 +34,7 @@ client = IinLookupSDK.new
 
 ```ruby
 begin
-  # load returns the bare Overview record (raises on error).
+  # load returns the ENTITY — call data_get for the Overview record (raises on error).
   overview = client.Overview.load()
   puts overview
 rescue => err
@@ -45,7 +45,7 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created Overview record.
+# create returns the ENTITY — call data_get for the created Overview record.
 created = client.Overview.create({  })
 
 ```
@@ -125,7 +125,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = IinLookupSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 overview = client.Overview.load()
 puts overview
 ```
@@ -267,7 +268,7 @@ Create an instance: `overview = client.Overview`
 #### Example: Load
 
 ```ruby
-# load returns the bare Overview record (raises on error).
+# load returns the ENTITY — call data_get for the Overview record (raises on error).
 overview = client.Overview.load()
 ```
 

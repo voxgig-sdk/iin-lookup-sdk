@@ -23,8 +23,8 @@ module IinLookupTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("IINLOOKUP_TEST_LIVE")
-    override = getenv("IINLOOKUP_TEST_OVERRIDE")
+    live = getenv("IIN_LOOKUP_TEST_LIVE")
+    override = getenv("IIN_LOOKUP_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module IinLookupTestRunner
       end
     end
 
-    explain = getenv("IINLOOKUP_TEST_EXPLAIN")
-    m["IINLOOKUP_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("IIN_LOOKUP_TEST_EXPLAIN")
+    m["IIN_LOOKUP_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

@@ -14,6 +14,9 @@ local function make_config()
     },
     options = {
       base = "http://{{base_url}}",
+      server = {
+        ["base_url"] = "",
+      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -33,6 +36,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/iin",
                 ["parts"] = {
@@ -76,6 +80,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/iin",
                 ["parts"] = {

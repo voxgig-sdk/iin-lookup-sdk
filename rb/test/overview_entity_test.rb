@@ -26,7 +26,7 @@ class OverviewEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set IINLOOKUP_TEST_OVERVIEW_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set IIN_LOOKUP_TEST_OVERVIEW_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -37,7 +37,7 @@ class OverviewEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.overview"), "overview_ref01"))
 
     overview_ref01_data_result = overview_ref01_ent.create(overview_ref01_data, nil)
-    overview_ref01_data = Helpers.to_map(overview_ref01_data_result)
+    overview_ref01_data = Helpers.to_map(overview_ref01_data_result.respond_to?(:data_get) ? overview_ref01_data_result.data_get : overview_ref01_data_result)
     assert !overview_ref01_data.nil?
 
     # LOAD
@@ -74,22 +74,22 @@ def overview_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["IINLOOKUP_TEST_OVERVIEW_ENTID"]
+  entid_env_raw = ENV["IIN_LOOKUP_TEST_OVERVIEW_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "IINLOOKUP_TEST_OVERVIEW_ENTID" => idmap,
-    "IINLOOKUP_TEST_LIVE" => "FALSE",
-    "IINLOOKUP_TEST_EXPLAIN" => "FALSE",
+    "IIN_LOOKUP_TEST_OVERVIEW_ENTID" => idmap,
+    "IIN_LOOKUP_TEST_LIVE" => "FALSE",
+    "IIN_LOOKUP_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["IINLOOKUP_TEST_OVERVIEW_ENTID"])
+    env["IIN_LOOKUP_TEST_OVERVIEW_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["IINLOOKUP_TEST_LIVE"] == "TRUE"
+  if env["IIN_LOOKUP_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -98,13 +98,13 @@ def overview_basic_setup(extra)
     client = IinLookupSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["IINLOOKUP_TEST_LIVE"] == "TRUE"
+  live = env["IIN_LOOKUP_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["IINLOOKUP_TEST_EXPLAIN"] == "TRUE",
+    explain: env["IIN_LOOKUP_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

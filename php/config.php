@@ -20,6 +20,9 @@ class IinLookupConfig
             ],
             "options" => [
                 "base" => "http://{{base_url}}",
+                "server" => [
+                    "base_url" => "",
+                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -39,6 +42,7 @@ class IinLookupConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/iin',
                   'parts' => [
@@ -82,6 +86,7 @@ class IinLookupConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/iin',
                   'parts' => [
