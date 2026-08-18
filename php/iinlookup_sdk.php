@@ -40,7 +40,7 @@ class IinLookupSDK
         $utility = new IinLookupUtility();
         $this->_utility = $utility;
 
-        $config = IinLookupConfig::make_config();
+        $config = IinLookupConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'http://{{base_url}}',
+    base: "http://{{base_url}}",
 
     server: {
       "base_url": "",
@@ -65,7 +65,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "POST",
@@ -77,36 +76,29 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "query": [
                   {
-                    "active": true,
                     "example": "12345",
                     "kind": "query",
                     "name": "digit",
                     "orig": "digit",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "{{secret_key}}",
                     "kind": "query",
                     "name": "key",
                     "orig": "key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -126,11 +118,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {

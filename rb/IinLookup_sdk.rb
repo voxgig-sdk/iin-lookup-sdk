@@ -28,7 +28,7 @@ class IinLookupSDK
     utility = IinLookupUtility.new
     @_utility = utility
 
-    config = IinLookupConfig.make_config
+    config = IinLookupConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

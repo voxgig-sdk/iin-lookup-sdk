@@ -355,7 +355,7 @@ unofficial client and is not affiliated with the API provider.
 The OpenAPI spec(s) this SDK was generated from are kept in the
 [`.sdk/def/`](.sdk/def/) folder.
 
-- Upstream API: [http://{{base_url}}](http://{{base_url}})
+- Upstream API: `http://{{base_url}}`
 
 ## Security
 
