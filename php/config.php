@@ -33,6 +33,9 @@ class IinLookupConfig
         return [
             "main" => [
                 "name" => "IinLookup",
+                "slug" => "iin-lookup",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
