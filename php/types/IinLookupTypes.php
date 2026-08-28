@@ -20,6 +20,8 @@ class Overview
 /** Request payload for Overview#load. */
 class OverviewLoadMatch
 {
+    public ?int $digit = null;
+    public ?string $key = null;
 }
 
 /** Request payload for Overview#create. */

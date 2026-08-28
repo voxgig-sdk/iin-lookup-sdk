@@ -18,6 +18,8 @@ type Overview struct {
 
 // OverviewLoadMatch is the typed request payload for Overview.LoadTyped.
 type OverviewLoadMatch struct {
+	Digit *int `json:"digit,omitempty"`
+	Key *string `json:"key,omitempty"`
 }
 
 // OverviewCreateData is the typed request payload for Overview.CreateTyped.

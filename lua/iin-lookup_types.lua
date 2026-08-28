@@ -9,6 +9,8 @@
 ---@class Overview
 
 ---@class OverviewLoadMatch
+---@field digit? number
+---@field key? string
 
 ---@class OverviewCreateData
 

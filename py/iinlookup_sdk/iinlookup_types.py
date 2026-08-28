@@ -20,8 +20,9 @@ class Overview(TypedDict):
     pass
 
 
-class OverviewLoadMatch(TypedDict):
-    pass
+class OverviewLoadMatch(TypedDict, total=False):
+    digit: int
+    key: str
 
 
 class OverviewCreateData(TypedDict):

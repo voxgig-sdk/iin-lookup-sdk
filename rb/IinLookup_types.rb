@@ -13,8 +13,17 @@ class Overview
 end
 
 # Request payload for Overview#load.
-class OverviewLoadMatch
-end
+#
+# @!attribute [rw] digit
+#   @return [Integer, nil]
+#
+# @!attribute [rw] key
+#   @return [String, nil]
+OverviewLoadMatch = Struct.new(
+  :digit,
+  :key,
+  keyword_init: true
+)
 
 # Request payload for Overview#create.
 class OverviewCreateData
