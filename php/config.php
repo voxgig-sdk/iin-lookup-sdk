@@ -71,13 +71,18 @@ class IinLookupConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/iin',
-                  'parts' => [
-                    'iin',
+                  'segments' => [
+                    [
+                      'lit' => 'iin',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'iin',
                   ],
                 ],
               ],
@@ -108,8 +113,10 @@ class IinLookupConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/iin',
-                  'parts' => [
-                    'iin',
+                  'segments' => [
+                    [
+                      'lit' => 'iin',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -120,6 +127,9 @@ class IinLookupConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'iin',
                   ],
                 ],
               ],

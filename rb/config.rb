@@ -57,14 +57,19 @@ module IinLookupConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/iin",
-                  "parts" => [
-                    "iin",
+                  "segments" => [
+                    {
+                      "lit" => "iin",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "iin",
+                  ],
                 },
               ],
             },
@@ -94,8 +99,10 @@ module IinLookupConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/iin",
-                  "parts" => [
-                    "iin",
+                  "segments" => [
+                    {
+                      "lit" => "iin",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -107,6 +114,9 @@ module IinLookupConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "iin",
+                  ],
                 },
               ],
             },

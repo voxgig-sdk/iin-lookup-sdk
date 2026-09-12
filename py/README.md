@@ -33,7 +33,11 @@ loading a specific record.
 ```python
 from iinlookup_sdk import IinLookupSDK
 
-client = IinLookupSDK()
+client = IinLookupSDK({
+    "server": {
+        "base_url": "<base_url>",
+    },
+})
 ```
 
 ### 3. Load an overview

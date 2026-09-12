@@ -30,7 +30,12 @@ loading a specific record.
 ```ts
 import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
 
-const client = new IinLookupSDK()
+const client = new IinLookupSDK({
+  // Required: this API's server URL is templated on these.
+  server: {
+    base_url: '<base_url>',
+  },
+})
 ```
 
 ### 3. Load an overview
@@ -200,6 +205,7 @@ cd ts && npm test
 
 ```ts
 new IinLookupSDK(options?: {
+  server?: { base_url: string }
   base?: string
   prefix?: string
   suffix?: string
@@ -210,6 +216,7 @@ new IinLookupSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `server` | `object` | **Required.** Values for the server-URL variables: `base_url`. The API base URL is a template over them. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

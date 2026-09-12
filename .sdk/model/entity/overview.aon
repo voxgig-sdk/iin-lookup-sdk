@@ -12,8 +12,10 @@ main: kit: entity: overview: {
         {
           method: "POST"
           orig: "/iin"
-          parts: [
-            "iin"
+          segments: [
+            {
+              lit: "iin"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -48,8 +50,10 @@ main: kit: entity: overview: {
           }
           method: "GET"
           orig: "/iin"
-          parts: [
-            "iin"
+          segments: [
+            {
+              lit: "iin"
+            }
           ]
           select: {
             exist: [

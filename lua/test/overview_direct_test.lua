@@ -62,13 +62,24 @@ function overview_direct_setup(mockres)
   local env = runner.env_override({
     ["IIN_LOOKUP_TEST_OVERVIEW_ENTID"] = {},
     ["IIN_LOOKUP_TEST_LIVE"] = "FALSE",
+    ["IIN_LOOKUP_SERVER_BASE_URL"] = "",
   })
 
   local live = env["IIN_LOOKUP_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      server = {
+        ["base_url"] = env["IIN_LOOKUP_SERVER_BASE_URL"],
+      },
     }
+    -- sdk-test-control.json's test.client.options goes UNDER the generated
+    -- fields: it adds to the live client, it does not redirect it.
+    for _k, _v in pairs(runner.live_client_options()) do
+      if merged_opts[_k] == nil then
+        merged_opts[_k] = _v
+      end
+    end
     local client = sdk.new(merged_opts)
     return {
       client = client,

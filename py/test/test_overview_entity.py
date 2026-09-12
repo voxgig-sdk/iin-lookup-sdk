@@ -90,6 +90,7 @@ def _overview_basic_setup(extra):
         "IIN_LOOKUP_TEST_OVERVIEW_ENTID": idmap,
         "IIN_LOOKUP_TEST_LIVE": "FALSE",
         "IIN_LOOKUP_TEST_EXPLAIN": "FALSE",
+        "IIN_LOOKUP_SERVER_BASE_URL": "",
     })
 
     idmap_resolved = helpers.to_map(
@@ -99,7 +100,14 @@ def _overview_basic_setup(extra):
 
     if env.get("IIN_LOOKUP_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
+                "server": {
+                    "base_url": env.get("IIN_LOOKUP_SERVER_BASE_URL"),
+                },
             },
             extra or {},
         ])

@@ -119,7 +119,12 @@ local result, err = client:Overview():load()
 ```ts
 import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
 
-const client = new IinLookupSDK()
+const client = new IinLookupSDK({
+  // Required: this API's server URL is templated on these.
+  server: {
+    base_url: '<base_url>',
+  },
+})
 
 // Load overview data (returns a Overview)
 const overview = await client.Overview().load()
@@ -176,7 +181,11 @@ own list above for exactly which it supports.
 ```python
 from iinlookup_sdk import IinLookupSDK
 
-client = IinLookupSDK()
+client = IinLookupSDK({
+    "server": {
+        "base_url": "<base_url>",
+    },
+})
 
 
 # Load a specific overview (returns the record, raises on error)
@@ -203,7 +212,11 @@ print_r($overview);
 ```go
 import sdk "github.com/voxgig-sdk/iin-lookup-sdk/go"
 
-client := sdk.New()
+client := sdk.NewIinLookupSDK(map[string]any{
+    "server": map[string]any{
+        "base_url": "<base_url>",
+    },
+})
 
 // Load overview data
 overview, err := client.Overview(nil).Load(nil, nil)
@@ -349,7 +362,7 @@ customizable without forking any upstream tool:
 
 - **The model** (`.sdk/model/`) declares everything this project owns:
   package names, versions, active features, per-target settings. It is
-  written in [aontu](https://github.com/aontu-lang/aontu), a JSON-based
+  written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.

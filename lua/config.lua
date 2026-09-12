@@ -45,13 +45,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/iin",
-                ["parts"] = {
-                  "iin",
+                ["segments"] = {
+                  {
+                    ["lit"] = "iin",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "iin",
                 },
               },
             },
@@ -82,8 +87,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/iin",
-                ["parts"] = {
-                  "iin",
+                ["segments"] = {
+                  {
+                    ["lit"] = "iin",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -94,6 +101,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "iin",
                 },
               },
             },

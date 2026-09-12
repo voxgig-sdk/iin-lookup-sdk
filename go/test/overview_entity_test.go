@@ -52,7 +52,7 @@ func TestOverviewEntity(t *testing.T) {
 		// CREATE
 		overviewRef01Ent := client.Overview(nil)
 		overviewRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "overview"}, setup.data), "overview_ref01"))
+			vs.GetPath(setup.data, []any{"new", "overview"}), "overview_ref01"))
 
 		overviewRef01DataResult, err := overviewRef01Ent.Create(overviewRef01Data, nil)
 		if err != nil {
@@ -100,7 +100,7 @@ func overviewBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"overview01", "overview02", "overview03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -120,6 +120,7 @@ func overviewBasicSetup(extra map[string]any) *entityTestSetup {
 		"IIN_LOOKUP_TEST_OVERVIEW_ENTID": idmap,
 		"IIN_LOOKUP_TEST_LIVE":      "FALSE",
 		"IIN_LOOKUP_TEST_EXPLAIN":   "FALSE",
+		"IIN_LOOKUP_SERVER_BASE_URL": "",
 	})
 
 	idmapResolved := core.ToMapAny(env["IIN_LOOKUP_TEST_OVERVIEW_ENTID"])
@@ -128,10 +129,25 @@ func overviewBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["IIN_LOOKUP_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
+				"server": map[string]any{
+					"base_url": env["IIN_LOOKUP_SERVER_BASE_URL"],
+				},
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewIinLookupSDK(core.ToMapAny(mergedOpts))
 	}

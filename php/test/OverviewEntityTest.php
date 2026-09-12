@@ -84,6 +84,7 @@ function overview_basic_setup($extra)
         "IIN_LOOKUP_TEST_OVERVIEW_ENTID" => $idmap,
         "IIN_LOOKUP_TEST_LIVE" => "FALSE",
         "IIN_LOOKUP_TEST_EXPLAIN" => "FALSE",
+        "IIN_LOOKUP_SERVER_BASE_URL" => '',
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -94,9 +95,19 @@ function overview_basic_setup($extra)
 
     if ($env["IIN_LOOKUP_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
+                "server" => [
+                    "base_url" => $env["IIN_LOOKUP_SERVER_BASE_URL"],
+                ],
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new IinLookupSDK(Helpers::to_map($merged_opts));
     }

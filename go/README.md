@@ -48,7 +48,11 @@ import (
 )
 
 func main() {
-    client := sdk.New()
+    client := sdk.NewIinLookupSDK(map[string]any{
+    "server": map[string]any{
+        "base_url": "<base_url>",
+    },
+    })
 
     // Load a single overview — the value is the loaded record.
     overview, err := client.Overview(nil).Load(nil, nil)

@@ -61,13 +61,19 @@ def overview_direct_setup(mockres)
   env = Runner.env_override({
     "IIN_LOOKUP_TEST_OVERVIEW_ENTID" => {},
     "IIN_LOOKUP_TEST_LIVE" => "FALSE",
+    "IIN_LOOKUP_SERVER_BASE_URL" => "",
   })
 
   live = env["IIN_LOOKUP_TEST_LIVE"] == "TRUE"
 
   if live
-    merged_opts = {
-    }
+    # Merged so the generated fields win: sdk-test-control.json's
+    # test.client.options adds to the live client, it does not redirect it.
+    merged_opts = Runner.live_client_options.merge({
+      "server" => {
+        "base_url" => env["IIN_LOOKUP_SERVER_BASE_URL"],
+      },
+    })
     client = IinLookupSDK.new(merged_opts)
     return {
       client: client,
