@@ -1,5 +1,5 @@
 {
-  "name": "@voxgig-sdk/iin-lookup",
+  "name": "@voxgig-sdk/iin-lookup-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the IIN Lookup public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [

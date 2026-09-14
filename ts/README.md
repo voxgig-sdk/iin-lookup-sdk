@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
+import { IinLookupSDK } from '@voxgig-sdk/iin-lookup-sdk'
 
 const client = new IinLookupSDK({
   // Required: this API's server URL is templated on these.
@@ -418,7 +418,7 @@ iin-lookup/
 Import the SDK from the package root:
 
 ```ts
-import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
+import { IinLookupSDK } from '@voxgig-sdk/iin-lookup-sdk'
 ```
 
 ### Entity state

@@ -103,7 +103,7 @@ local result, err = client:Overview():load()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/iin-lookup` | publish pending — [install from git tag](https://github.com/voxgig-sdk/iin-lookup-sdk/releases) |
+| TypeScript | `@voxgig-sdk/iin-lookup-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/iin-lookup-sdk/releases) |
 | Python | `voxgig-sdk-iin-lookup` | publish pending — [install from git tag](https://github.com/voxgig-sdk/iin-lookup-sdk/releases) |
 | PHP | `voxgig-sdk/iin-lookup` | publish pending — [install from git tag](https://github.com/voxgig-sdk/iin-lookup-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/iin-lookup-sdk/go` | `go get github.com/voxgig-sdk/iin-lookup-sdk/go@latest` |
@@ -117,7 +117,7 @@ local result, err = client:Overview():load()
 ### TypeScript
 
 ```ts
-import { IinLookupSDK } from '@voxgig-sdk/iin-lookup'
+import { IinLookupSDK } from '@voxgig-sdk/iin-lookup-sdk'
 
 const client = new IinLookupSDK({
   // Required: this API's server URL is templated on these.
