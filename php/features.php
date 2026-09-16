@@ -4,7 +4,10 @@ declare(strict_types=1);
 // IinLookup SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class IinLookupFeatures
@@ -14,8 +17,14 @@ class IinLookupFeatures
         switch ($name) {
             case "base":
                 return new IinLookupBaseFeature();
+            case "ratelimit":
+                return new IinLookupRatelimitFeature();
+            case "retry":
+                return new IinLookupRetryFeature();
             case "test":
                 return new IinLookupTestFeature();
+            case "timeout":
+                return new IinLookupTimeoutFeature();
             default:
                 return new IinLookupBaseFeature();
         }
@@ -31,7 +40,10 @@ class IinLookupFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;
