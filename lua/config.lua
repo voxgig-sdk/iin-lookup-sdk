@@ -95,7 +95,6 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/iin",
@@ -104,14 +103,16 @@ local function make_config()
                     ["lit"] = "iin",
                   },
                 },
-                ["select"] = {},
+                ["parts"] = {
+                  "iin",
+                },
+                ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "iin",
-                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },
@@ -120,24 +121,6 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["example"] = "12345",
-                      ["kind"] = "query",
-                      ["name"] = "digit",
-                      ["orig"] = "digit",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["example"] = "{{secret_key}}",
-                      ["kind"] = "query",
-                      ["name"] = "key",
-                      ["orig"] = "key",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/iin",
@@ -146,18 +129,37 @@ local function make_config()
                     ["lit"] = "iin",
                   },
                 },
+                ["parts"] = {
+                  "iin",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "digit",
+                      ["orig"] = "digit",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = "12345",
+                    },
+                    {
+                      ["name"] = "key",
+                      ["orig"] = "key",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["example"] = "{{secret_key}}",
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "digit",
                     "key",
                   },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "iin",
                 },
               },
             },

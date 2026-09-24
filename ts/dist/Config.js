@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -122,7 +115,6 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "POST",
                             "orig": "/iin",
@@ -131,14 +123,16 @@ class Config {
                                     "lit": "iin"
                                 }
                             ],
-                            "select": {},
+                            "parts": [
+                                "iin"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "iin"
-                            ]
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 },
@@ -147,24 +141,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "12345",
-                                        "kind": "query",
-                                        "name": "digit",
-                                        "orig": "digit",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": "{{secret_key}}",
-                                        "kind": "query",
-                                        "name": "key",
-                                        "orig": "key",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/iin",
@@ -173,19 +149,38 @@ class Config {
                                     "lit": "iin"
                                 }
                             ],
+                            "parts": [
+                                "iin"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "digit",
+                                        "orig": "digit",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": "12345"
+                                    },
+                                    {
+                                        "name": "key",
+                                        "orig": "key",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "{{secret_key}}"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "digit",
                                     "key"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "iin"
-                            ]
+                            }
                         }
                     ]
                 }

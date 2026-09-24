@@ -1,0 +1,88 @@
+# Entity: overview
+
+main: kit: entity: overview: {
+
+  alias: field: {}
+
+  name: "overview"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /iin"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/iin"
+          s: [
+            {
+              lit: "iin"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /iin"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "12345"
+                k: "query"
+                n: "digit"
+                or: "digit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "{{secret_key}}"
+                k: "query"
+                n: "key"
+                or: "key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/iin"
+          q: {
+            exist: [
+              "digit"
+              "key"
+            ]
+          }
+          s: [
+            {
+              lit: "iin"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

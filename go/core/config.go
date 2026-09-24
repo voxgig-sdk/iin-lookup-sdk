@@ -99,7 +99,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/iin",
@@ -108,14 +107,16 @@ func MakeConfig() map[string]any {
 										"lit": "iin",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"iin",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"iin",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -124,24 +125,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "12345",
-											"kind": "query",
-											"name": "digit",
-											"orig": "digit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "{{secret_key}}",
-											"kind": "query",
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/iin",
@@ -150,18 +133,37 @@ func MakeConfig() map[string]any {
 										"lit": "iin",
 									},
 								},
+								"parts": []any{
+									"iin",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "digit",
+											"orig": "digit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": "12345",
+										},
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "{{secret_key}}",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"digit",
 										"key",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"iin",
 								},
 							},
 						},
