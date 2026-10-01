@@ -145,7 +145,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "digit",
-											"orig": "digit",
+											"orig": "digits",
 											"type": "`$INTEGER`",
 											"kind": "query",
 											"example": "12345",

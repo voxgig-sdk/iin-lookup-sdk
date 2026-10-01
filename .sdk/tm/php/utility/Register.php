@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 IinLookupUtility::setRegistrar(function (IinLookupUtility $u): void {
     $u->clean = [IinLookupClean::class, 'call'];
+    $u->clean_add = [IinLookupClean::class, 'add'];
+    $u->clean_explain = [IinLookupDone::class, 'clean_explain'];
     $u->done = [IinLookupDone::class, 'call'];
     $u->make_error = [IinLookupMakeError::class, 'call'];
     $u->feature_add = [IinLookupFeatureAdd::class, 'call'];

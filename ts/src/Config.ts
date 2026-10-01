@@ -187,7 +187,7 @@ class Config {
                 "query": [
                   {
                     "name": "digit",
-                    "orig": "digit",
+                    "orig": "digits",
                     "type": "`$INTEGER`",
                     "kind": "query",
                     "example": "12345"

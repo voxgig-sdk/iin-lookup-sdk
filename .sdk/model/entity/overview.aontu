@@ -44,7 +44,7 @@ main: kit: entity: overview: {
                 ex: "12345"
                 k: "query"
                 n: "digit"
-                or: "digit"
+                or: "digits"
                 r: false
                 t: "`$INTEGER`"
               }

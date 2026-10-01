@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 IinLookupUtility.registrar = ->(u) {
   u.clean = IinLookupUtilities::Clean
+  u.clean_add = IinLookupUtilities::CleanAdd
+  u.clean_explain = IinLookupUtilities::CleanExplain
   u.done = IinLookupUtilities::Done
   u.make_error = IinLookupUtilities::MakeError
   u.feature_add = IinLookupUtilities::FeatureAdd
