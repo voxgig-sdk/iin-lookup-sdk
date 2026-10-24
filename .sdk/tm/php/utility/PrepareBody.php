@@ -3,11 +3,16 @@ declare(strict_types=1);
 
 // IinLookup SDK utility: prepare_body
 
+require_once __DIR__ . '/Media.php';
+
 class IinLookupPrepareBody
 {
     public static function call(IinLookupContext $ctx): mixed
     {
         if ($ctx->op->input === 'data') {
+            if (IinLookupMedia::isRawRequest($ctx->point)) {
+                return IinLookupMedia::rawBody($ctx->reqdata);
+            }
             $body = ($ctx->utility->transform_request)($ctx);
             // PHP cannot tell an empty map from an empty list, and this
             // vendored struct answers [] where the canonical transform

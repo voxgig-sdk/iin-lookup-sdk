@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -103,7 +104,7 @@ def make_config():
       },
         },
         "options": {
-            "base": "http://{{base_url}}",
+            "base": "http://{base_url}",
             "server": {
                 "base_url": "",
             },
@@ -142,6 +143,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "raw",
+                  "media": "text/plain",
+                },
               },
             ],
           },
@@ -184,11 +189,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "digit",
-                    "key",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "raw",
+                  "media": "text/plain",
                 },
               },
             ],

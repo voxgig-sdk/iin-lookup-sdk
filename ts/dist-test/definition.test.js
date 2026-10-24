@@ -17,7 +17,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "text/plain"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": null,
@@ -31,13 +36,27 @@ const PLAN = [
         "path": "/iin",
         "args": [],
         "select": {
-            "digit": "v1",
+            "digit": "12345",
             "key": "{{secret_key}}"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "text/plain"
+        ],
         "query": [
             "key",
             "digits"
+        ],
+        "queryArgs": [
+            {
+                "name": "digit",
+                "wire": "digits"
+            },
+            {
+                "name": "key",
+                "wire": "key"
+            }
         ],
         "auth": null,
         "status": 200,

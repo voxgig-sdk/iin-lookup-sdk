@@ -54,6 +54,14 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Overview();
         (0, node_assert_1.default)(null != ent);
     });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.IinLookupSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Overview().load({ "digit": "x" }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.IIN_LOOKUP_TEST_LIVE;
         for (const op of ['create', 'load']) {
@@ -62,7 +70,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": {}, "name": "overview", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "co": { "id": "POST /iin", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/iin", "q": {}, "r": {}, "s": [{ "lit": "iin" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /iin", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "ex": "12345", "k": "query", "n": "digit", "or": "digits", "r": false, "t": "`$INTEGER`", "index$": 0 }, { "a": true, "ex": "{{secret_key}}", "k": "query", "n": "key", "or": "key", "r": false, "t": "`$STRING`", "index$": 1 }] }, "k": "http", "m": "GET", "o": "/iin", "q": { "exist": ["digit", "key"] }, "r": {}, "s": [{ "lit": "iin" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "overview", "name__orig": "overview", "Name": "Overview", "name_": "overview", "name-": "overview", "NAME": "OVERVIEW", "index$": 0 }, { "active": true, "entity": "overview", "key$": "BasicOverviewFlow", "kind": "basic", "name": "BasicOverviewFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "overview_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }, { "a": true, "d": {}, "i": { "ref": "overview_ref01", "srcdatavar": "overview_ref01_data", "suffix": "_dt0" }, "m": {}, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-overview_ref01" } }], "index$": 1 }] }, 'Overview', { "POST /iin": { "protocol": "http", "requestBody": { "content": { "application/json": { "schema": { "type": "object", "example": { "value1": "value1", "value2": "value2" }, "index$": 1 } } } }, "parameters": [] }, "GET /iin": { "protocol": "http", "parameters": [{ "name": "key", "in": "query", "schema": { "type": "string" }, "example": "{{secret_key}}", "index$": 0 }, { "name": "digits", "in": "query", "schema": { "type": "integer" }, "example": "12345", "index$": 1 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": {}, "name": "overview", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "bf": false, "co": { "id": "POST /iin", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/iin", "q": {}, "r": {}, "rs": { "kind": "raw", "media": "text/plain" }, "s": [{ "lit": "iin" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /iin", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "ex": "12345", "k": "query", "n": "digit", "or": "digits", "r": false, "t": "`$INTEGER`", "index$": 0 }, { "a": true, "ex": "{{secret_key}}", "k": "query", "n": "key", "or": "key", "r": false, "t": "`$STRING`", "index$": 1 }] }, "k": "http", "m": "GET", "o": "/iin", "q": {}, "r": {}, "rs": { "kind": "raw", "media": "text/plain" }, "s": [{ "lit": "iin" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "overview", "name__orig": "overview", "Name": "Overview", "name_": "overview", "name-": "overview", "NAME": "OVERVIEW", "index$": 0 }, { "active": true, "entity": "overview", "key$": "BasicOverviewFlow", "kind": "basic", "name": "BasicOverviewFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "overview_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }, { "a": true, "d": {}, "i": { "ref": "overview_ref01", "srcdatavar": "overview_ref01_data", "suffix": "_dt0" }, "m": {}, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-overview_ref01" } }], "index$": 1 }] }, 'Overview', { "POST /iin": { "protocol": "http", "requestBody": { "content": { "application/json": { "schema": { "type": "object", "example": { "value1": "value1", "value2": "value2" }, "index$": 1 } } } }, "parameters": [] }, "GET /iin": { "protocol": "http", "parameters": [{ "name": "key", "in": "query", "schema": { "type": "string" }, "example": "{{secret_key}}", "index$": 0 }, { "name": "digits", "in": "query", "schema": { "type": "integer" }, "example": "12345", "index$": 1 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -79,6 +87,11 @@ const utility_1 = require("../../utility");
         (0, node_assert_1.default)(null != overview_ref01_data_dt0);
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

@@ -79,6 +79,7 @@ module IinLookupConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -86,7 +87,7 @@ module IinLookupConfig
         },
       },
       "options" => {
-        "base" => "http://{{base_url}}",
+        "base" => "http://{base_url}",
         "server" => {
           "base_url" => "",
         },
@@ -125,6 +126,10 @@ module IinLookupConfig
                   },
                   "args" => {},
                   "select" => {},
+                  "response" => {
+                    "kind" => "raw",
+                    "media" => "text/plain",
+                  },
                 },
               ],
             },
@@ -167,11 +172,10 @@ module IinLookupConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "digit",
-                      "key",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "raw",
+                    "media" => "text/plain",
                   },
                 },
               ],

@@ -105,6 +105,7 @@
               "points": [
                 {
                   "a": true,
+                  "bf": false,
                   "co": {
                     "id": "POST /iin",
                     "source": "openapi3",
@@ -116,6 +117,10 @@
                   "o": "/iin",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "raw",
+                    "media": "text/plain"
+                  },
                   "s": [
                     {
                       "lit": "iin"
@@ -164,13 +169,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/iin",
-                  "q": {
-                    "exist": [
-                      "digit",
-                      "key"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "raw",
+                    "media": "text/plain"
+                  },
                   "s": [
                     {
                       "lit": "iin"
@@ -511,6 +515,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -648,7 +653,12 @@
         "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
-            "url": "http://{{base_url}}"
+            "url": "http://{base_url}",
+            "variables": {
+              "base_url": {
+                "default": ""
+              }
+            }
           }
         ],
         "summary": "IIN API: Card IIN and BIN Lookup and Verification",
@@ -659,7 +669,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -712,6 +722,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -942,7 +957,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -1319,6 +1337,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -112,7 +113,7 @@ class Config {
 
 
   options = {
-    base: "http://{{base_url}}",
+    base: "http://{base_url}",
 
     server: {
       "base_url": "",
@@ -158,7 +159,11 @@ class Config {
                 "res": "`body`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "raw",
+                "media": "text/plain"
+              }
             }
           ]
         },
@@ -201,11 +206,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "digit",
-                  "key"
-                ]
+              "select": {},
+              "response": {
+                "kind": "raw",
+                "media": "text/plain"
               }
             }
           ]

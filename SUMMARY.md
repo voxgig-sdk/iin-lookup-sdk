@@ -1,6 +1,8 @@
 # IIN Lookup API
 
-IIN API: Card IIN and BIN Lookup and Verification IIN API allows you to accurately identify the issuing bank, card type, country of origin, and other details from a credit or debit card number. This is essential for fraud prevention, payment processing, and customer verification.
+> IIN API: Card IIN and BIN Lookup and Verification
+>
+> IIN API allows you to accurately identify the issuing bank, card type, country of origin, and other details from a credit or debit card number. This is essential for fraud prevention, payment processing, and customer verification.
 
 ## Start here
 
@@ -29,7 +31,7 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 ## Connect to the API
 
-- API server: `http://{{base_url}}`
+- API server: `http://{base_url}`
 
 Check authentication for the route you plan to call. A route that declares no authentication can be used without credentials; this does not change the requirements of other routes. Keep credentials in environment variables or a configured secret provider, and keep them out of source control and logs.
 

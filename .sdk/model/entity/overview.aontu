@@ -10,6 +10,7 @@ main: kit: entity: overview: {
       name: "create"
       points: [
         {
+          bf: false
           co: {
             id: "POST /iin"
             source: "openapi3"
@@ -17,6 +18,10 @@ main: kit: entity: overview: {
           }
           m: "POST"
           o: "/iin"
+          rs: {
+            kind: "raw"
+            media: "text/plain"
+          }
           s: [
             {
               lit: "iin"
@@ -60,11 +65,9 @@ main: kit: entity: overview: {
           }
           m: "GET"
           o: "/iin"
-          q: {
-            exist: [
-              "digit"
-              "key"
-            ]
+          rs: {
+            kind: "raw"
+            media: "text/plain"
           }
           s: [
             {

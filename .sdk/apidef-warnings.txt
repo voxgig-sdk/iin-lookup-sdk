@@ -1,0 +1,4 @@
+{
+  point: "warning"
+  note: "server URL `http://{{base_url}}` writes its variables in Postman's double braces: taken as `http://{base_url}`"
+}
